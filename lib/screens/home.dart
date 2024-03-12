@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:library_project/adddetails.dart';
+import 'package:library_project/functions/db_functions.dart';
+import 'package:library_project/screens/adddetails.dart';
 
-class Homescreen extends StatelessWidget {
+class Homescreen extends StatefulWidget {
   const Homescreen({Key?key}): super(key:key);
 
   @override
+  State<Homescreen> createState() => _HomescreenState();
+}
+
+class _HomescreenState extends State<Homescreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getallbooks();
+  }
   Widget build(BuildContext context) {
+    getallbooks();
     return Scaffold(
       body: ListView(
         children: [
@@ -62,7 +74,7 @@ class Homescreen extends StatelessWidget {
                 )
               ],
             ),
-          )
+          ),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -81,40 +93,52 @@ class Homescreen extends StatelessWidget {
           shape: CircularNotchedRectangle(),
           color: Colors.blue,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+       
             
             children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
+           IconButton(onPressed: (){},
+            icon: Column(
+              children: [
+                Icon(Icons.home,color: Colors.white,),
+                Text('home',style: TextStyle(fontSize: 10,color: Colors.white),),
+              ],
+            )),
+            
+            IconButton(onPressed: (){},
+             icon: Padding(
+               padding: const EdgeInsets.only(right: 16),
+               child: Column(
+                 children: [
+                   Icon(Icons.category,color: Colors.white,),
+                   Text('category',style: TextStyle(fontSize: 10,color: Colors.white),)
+                 ],
+               )
+               
+               ),
+               
+               ),
+              SizedBox(width: 10),
+             IconButton(onPressed: (){},
+              icon: Column(
                 children: [
-                  Icon(Icons.home,color: Colors.white,),
+                  Icon(Icons.favorite,color: Colors.white,),
+                  Text('favourite',style: TextStyle(fontSize: 10,color: Colors.white),)
                 ],
-              ),
-            )
-              
-             
+              )),
+              IconButton(onPressed: (){},
+               icon: Column(
+                 children: [
+                   Icon(Icons.person,color: Colors.white,),
+                   Text('person',style: TextStyle(fontSize: 10,color: Colors.white),)
+                 ],
+               )),
             ]
           ),
         ),
         
       ),
-    //   bottomNavigationBar:BottomNavigationBar(
-    // showUnselectedLabels: true,
-    //     iconSize: 20,
-    //     selectedItemColor: Colors.blue,
-    //     selectedFontSize: 10,
-    //     unselectedItemColor: Colors.grey,
-        
-    //     items: [
-        
-    //     BottomNavigationBarItem(icon: Icon(Icons.home),label: 'home'),
-    //     BottomNavigationBarItem(icon: Icon(Icons.category),label: 'category'),
-    //      BottomNavigationBarItem(icon: Icon(Icons.favorite),label: 'favorite'),
-    //       BottomNavigationBarItem(icon: Icon(Icons.person),label: 'user'),
-    //   ]) ,
+  
     );
   }
 }

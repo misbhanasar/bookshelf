@@ -32,13 +32,18 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
   image_picker: ^1.0.7
   lottie: ^3.1.0
+  path_provider: ^2.1.2
 
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+  hive_generator:  ^2.0.1
+  build_runner: ^2.1.5
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -53,7 +58,6 @@ flutter:
     - assets\lottie\Animation - 1709318165089.json
     - assets\images\Screenshot 2024-03-02 224236.png
     - assets\images\Screenshot 2024-03-02 224236.png
-    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

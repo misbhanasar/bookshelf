@@ -2,7 +2,7 @@
 
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:library_project/splash2.dart';
+import 'package:library_project/screens/splash2.dart';
 import 'package:lottie/lottie.dart';
 
 class splashscreen extends StatefulWidget {

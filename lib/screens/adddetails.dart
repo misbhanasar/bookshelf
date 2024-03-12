@@ -2,9 +2,20 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:library_project/functions/db_functions.dart';
+import 'package:library_project/model/data_model.dart';
+import 'package:library_project/screens/home.dart';
+
+
+
+
 
 class AddDetails extends StatefulWidget {
-   AddDetails({super.key});
+  final bookmodel? bokmodel;
+
+  const AddDetails({super.key, this.bokmodel});
+
+  
 
   @override
   State<AddDetails> createState() => _AddDetailsState();
@@ -22,12 +33,12 @@ final shelfnumbercontroller=TextEditingController();
 final bookdetailscontroller=TextEditingController();
 
 final GlobalKey<FormState>_formkey=GlobalKey<FormState>();
-late String image;
+late String? image;
 
 
 final ImagePicker _imagePicker=ImagePicker();
 File? pickedimage;
-String pickedimagepath='';
+String? pickedimagepath='';
 String imagepath='';
 
 @override
@@ -60,7 +71,7 @@ String imagepath='';
                         color: Color.fromARGB(255, 163, 201, 233),
                         border: Border.all(color: Color.fromARGB(255, 96, 92, 92)),
                         borderRadius: BorderRadius.circular(20),
-                        image: imagepath .isNotEmpty
+                        image: imagepath !=null
                          ? DecorationImage(image: FileImage(File(imagepath)),
                         fit: BoxFit.cover,
                         )
@@ -167,23 +178,23 @@ String imagepath='';
                   ),
 
 
-                  SizedBox(height: 15),
+                 const SizedBox(height: 15),
 
 
                   TextFormField(
                     controller: shelfnumbercontroller,
                   decoration: InputDecoration(
-                    hintStyle: TextStyle(color: Colors.blue),
+                    hintStyle:const TextStyle(color: Colors.blue),
                     filled: true,
-                    enabledBorder: UnderlineInputBorder(
+                    enabledBorder: const UnderlineInputBorder(
                        borderSide: BorderSide(
                         color: Colors.black12
                       )
                     ),
-                    focusedBorder: OutlineInputBorder(
+                    focusedBorder: const OutlineInputBorder(
                     ),
-                    fillColor: Color.fromARGB(255, 163, 201, 233),
-                    label: Text('shelf number',style: TextStyle(color: const Color.fromARGB(255, 113, 109, 109))),
+                    fillColor:  Color.fromARGB(255, 163, 201, 233),
+                    label:  Text('shelf number',style: TextStyle(color: const Color.fromARGB(255, 113, 109, 109))),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15),
                     )
@@ -198,20 +209,20 @@ String imagepath='';
               
 
 
-                  SizedBox(height: 15),
+                   const SizedBox(height: 15),
               
               
                   TextFormField(
                     controller: bookdetailscontroller,
                   decoration: InputDecoration(
-                    hintStyle: TextStyle(color: Colors.blue),
+                    hintStyle: const TextStyle(color: Colors.blue),
                     filled: true,
-                    enabledBorder: UnderlineInputBorder(
+                    enabledBorder: const UnderlineInputBorder(
                        borderSide: BorderSide(
                         color: Colors.black12
                       )
                     ),
-                    focusedBorder: OutlineInputBorder(
+                    focusedBorder: const OutlineInputBorder(
                     ),
                     fillColor: Color.fromARGB(255, 163, 201, 233),
                     label: Text('bookdetails',style: TextStyle(color: const Color.fromARGB(255, 109, 104, 104))),
@@ -226,18 +237,17 @@ String imagepath='';
                     return null;
                   }
                   ),
-                  SizedBox(height: 30,),
+                 const  SizedBox(height: 30,),
 
 
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary:Color.fromARGB(255, 163, 201, 233),
-                      side: BorderSide(width: 1,color: Color.fromARGB(255, 143, 139, 139))
+                      side:const BorderSide(width: 1,color: Color.fromARGB(255, 143, 139, 139))
                     ),
                     onPressed: (){
-                      if(_formkey.currentState!.validate()){
-                        addbookdetails(context);
-                      }
+                    addbookdetails(context);
+                     
                     },
                    child: Text('addbookdetails',style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0),),))
               
@@ -255,11 +265,11 @@ String imagepath='';
   final XFile?PickedFile=
   await _imagePicker.pickImage(source: ImageSource.gallery);
 
-  if(pickedimage!=null){
+  if(PickedFile!=null){
 setState(() {
-  pickedimage=File(PickedFile.path);
+  pickedimage=File(PickedFile .path);
   pickedimagepath=PickedFile.path;
-  imagepath=pickedimagepath;
+  imagepath=pickedimagepath!;
 });
   }
 
@@ -280,9 +290,23 @@ if(_formkey.currentState!.validate()){
      bookdetails.isEmpty||
      imagepath.isEmpty){
       return;
+
      }
-  
+      final book= bookmodel( 
+        bokname: bokname, 
+        authorname: authorname,
+         floornumber: floornumber, 
+         shelfnumber: shelfnumber, 
+         bookdetails: bookdetails);
+
+
+         addbook(book);
+         Navigator.of(context).pushReplacement(
+         MaterialPageRoute(builder: (context)=>Homescreen())
+         );
+
 }
- }
+
  
+}
 }

@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:library_project/splashscrren.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:library_project/model/data_model.dart';
+import 'package:library_project/screens/splashscrren.dart';
 
-void main() {
+
+Future<void> main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+ if( !Hive.isAdapterRegistered(bookmodelAdapter().typeId))
+ {
+ Hive.registerAdapter(bookmodelAdapter());
+ }
   runApp(const MyApp());
 }
 
