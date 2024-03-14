@@ -7,9 +7,10 @@ ValueNotifier<List<bookmodel>>booklistnotifier=ValueNotifier([]);
 
 Future<void> addbook(bookmodel value)async{
 final bookDB =await Hive.openBox<bookmodel>('book_db');
-bookDB.add(value);
-booklistnotifier.value.add(value);
- booklistnotifier.notifyListeners();
+int id = await bookDB.add(value);
+value.id=id;
+await bookDB.put(id,value);
+await getallbooks();
 }
 
 Future<void>getallbooks()async{

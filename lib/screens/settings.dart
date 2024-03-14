@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:library_project/functions/db_floorshelf.dart';
+import 'package:library_project/model/floor_model.dart';
+import 'package:library_project/screens/home.dart';
+
 
 class settings extends StatefulWidget {
   const settings({super.key});
@@ -90,7 +94,10 @@ final GlobalKey<FormState>_formkey=GlobalKey<FormState>();
             Padding(
               padding: const EdgeInsets.only(top: 20,left: 130),
               child: ElevatedButton(onPressed: (){
-                addsettingdetails();
+                
+                addsettingdetails(context);
+               
+                
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color.fromARGB(255, 163, 201, 233),
@@ -106,10 +113,24 @@ final GlobalKey<FormState>_formkey=GlobalKey<FormState>();
     );
     
   }
-  Future<void>addsettingdetails()async{
+  Future<void>addsettingdetails( context)async{
     if(_formkey.currentState!.validate()){
       final floornumbersetting=enterfloornumber.text.trim();
       final shelfnumbersetting=entertotalshelf.text.trim();
+      if(floornumbersetting.isEmpty||
+         shelfnumbersetting.isEmpty){
+          return;
+         }
+
+
+         final floor=FloorModel(
+          floornumbersetting: floornumbersetting,
+           shelfnumbersetting: shelfnumbersetting);
+
+           await addsettingdetailsToDb(floor);
+           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx)=>Homescreen()));
     }
+    
   }
+  
 }

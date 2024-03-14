@@ -1,22 +1,25 @@
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:library_project/functions/db_book.dart';
 import 'package:library_project/model/floor_model.dart';
 
 
-ValueNotifier<List<floormodel>>floorsettinglistnotifier=ValueNotifier([]);
+ValueNotifier<List<FloorModel>>floorsettinglistnotifier=ValueNotifier([]);
 
-Future<void> addsettingdetails(floormodel value)async{
-  final floordb=await Hive.openBox<floormodel>('floor_db');
-  floordb.add(value);
-  floorsettinglistnotifier.value.add(value);
-floorsettinglistnotifier.notifyListeners();
+Future<void> addsettingdetailsToDb(FloorModel value)async{
+  final floordb=await Hive.openBox<FloorModel>('floor_db');
+  int id = await floordb.add(value);
+  log(id.toString());
+  await getfloorsetting();
 }
 
 Future<void>getfloorsetting()async{
-  final floordb=await Hive.openBox<floormodel>('floor_db');
+  final floordb=await Hive.openBox<FloorModel>('floor_db');
   floorsettinglistnotifier.value.clear();
   floorsettinglistnotifier.value.addAll(floordb.values);
+  log(floorsettinglistnotifier.value.toString());
   floorsettinglistnotifier.notifyListeners();
 }

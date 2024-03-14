@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:library_project/functions/db_book.dart';
+import 'package:library_project/functions/db_floorshelf.dart';
 import 'package:library_project/model/data_model.dart';
 import 'package:library_project/screens/addbook.dart';
 import 'package:library_project/screens/settings.dart';
@@ -22,6 +23,7 @@ class _HomescreenState extends State<Homescreen> {
     // TODO: implement initState
     super.initState();
     getallbooks();
+    
   }
 
   
@@ -111,14 +113,14 @@ class _HomescreenState extends State<Homescreen> {
         ),
       ),
      
-      body: ListView.separated( 
-      itemBuilder: (context, index){
-        final data=booklistnotifier.value[index];
-          return 
-          ValueListenableBuilder(
+      body: ValueListenableBuilder(
             valueListenable: booklistnotifier,
-            builder:(BuildContext ctx , List<bookmodel>booklistnotifier, Widget? child){
-           return  SizedBox(
+            builder:(BuildContext ctx , List<bookmodel>list, Widget? child){
+           return ListView.builder(
+            itemCount: list.length,
+            itemBuilder: (context,index){
+              final data = list[index];
+              return  SizedBox(
             height: 220,
             width: double.infinity,
              child: Card(
@@ -184,16 +186,9 @@ class _HomescreenState extends State<Homescreen> {
               )
               ),
            );
+            });
             },
-          );
-          
-      },
-      separatorBuilder: (context, index)=>
-        SizedBox(height: 10),
-      itemCount:booklistnotifier.value.length,
-     
-        
-      ),
+          ),
    
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(onPressed: (){

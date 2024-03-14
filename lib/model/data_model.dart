@@ -16,6 +16,9 @@ class bookmodel extends HiveObject {
  final String bookdetails;
  @HiveField(6)
  final String imagepath;
+
+ @HiveField(7)
+  int? id;
   
 
 
@@ -25,5 +28,6 @@ class bookmodel extends HiveObject {
   required this.shelfnumber,
   required this.bookdetails,
   required this.imagepath,
+  this.id
   });
 }
