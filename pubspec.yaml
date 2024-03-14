@@ -58,6 +58,8 @@ flutter:
     - assets\lottie\Animation - 1709318165089.json
     - assets\images\Screenshot 2024-03-02 224236.png
     - assets\images\Screenshot 2024-03-02 224236.png
+    - assets\images\Screenshot 2024-03-02 224514.png
+    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

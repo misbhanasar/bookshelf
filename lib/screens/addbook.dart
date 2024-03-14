@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:library_project/functions/db_functions.dart';
+import 'package:library_project/functions/db_book.dart';
 import 'package:library_project/model/data_model.dart';
 import 'package:library_project/screens/home.dart';
 
@@ -141,7 +141,7 @@ String imagepath='';
                   ),
                    validator: (value){
                     if(value==null || value.isEmpty){
-                      return ' empty';
+                      return ' author name is required';
                     }
                     return null;
                   }
@@ -171,7 +171,7 @@ String imagepath='';
                   ),
                    validator: (value){
                     if(value==null || value.isEmpty){
-                      return ' empty';
+                      return ' floor number is required';
                     }
                     return null;
                   }
@@ -201,7 +201,7 @@ String imagepath='';
                   ),
                    validator: (value){
                     if(value==null || value.isEmpty){
-                      return ' empty';
+                      return ' shelf number is required';
                     }
                     return null;
                   }
@@ -232,7 +232,7 @@ String imagepath='';
                   ),
                    validator: (value){
                     if(value==null || value.isEmpty){
-                      return ' empty';
+                      return ' book details is requied';
                     }
                     return null;
                   }
@@ -242,7 +242,7 @@ String imagepath='';
 
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary:Color.fromARGB(255, 163, 201, 233),
+                      backgroundColor: Color.fromARGB(255, 163, 201, 233),
                       side:const BorderSide(width: 1,color: Color.fromARGB(255, 143, 139, 139))
                     ),
                     onPressed: (){
@@ -297,7 +297,9 @@ if(_formkey.currentState!.validate()){
         authorname: authorname,
          floornumber: floornumber, 
          shelfnumber: shelfnumber, 
-         bookdetails: bookdetails);
+         bookdetails: bookdetails,
+         imagepath: imagepath,
+         );
 
 
          addbook(book);

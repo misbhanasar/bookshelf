@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:library_project/functions/db_functions.dart';
-import 'package:library_project/screens/adddetails.dart';
+import 'package:library_project/functions/db_book.dart';
+import 'package:library_project/model/data_model.dart';
+import 'package:library_project/screens/addbook.dart';
+import 'package:library_project/screens/settings.dart';
+
 
 class Homescreen extends StatefulWidget {
   const Homescreen({Key?key}): super(key:key);
@@ -10,49 +15,71 @@ class Homescreen extends StatefulWidget {
 }
 
 class _HomescreenState extends State<Homescreen> {
+ 
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getallbooks();
   }
+
+  
+
+  
   Widget build(BuildContext context) {
     getallbooks();
     return Scaffold(
-      body: ListView(
-        children: [
-          Container(
-            padding: EdgeInsets.only(top: 15,left: 15,bottom: 10),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(150),
+        
+        child: AppBar(
+          flexibleSpace: Container(
+            padding: EdgeInsets.only(top: 15, left: 20, bottom: 10),
             decoration: BoxDecoration(
-            color: Colors.blue,
-           
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20)
-            )
+              color: Colors.blue,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(20),
+                bottomRight: Radius.circular(20),
+              ),
             ),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-             
                 Padding(
-                  padding: const EdgeInsets.only(right: 30,left: 3),
-                  child: Text(
-                    'BOOKSHELF',
-                    style: 
-                    TextStyle(fontSize: 20,
-                    fontWeight:FontWeight.bold,
-                    letterSpacing: 1,
-                    color: Colors.white,
-                    )
-                    
+                  padding: const EdgeInsets.only(right: 30, left: 3),
+                  child: Center(
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 100),
+                          child: Text(
+                            'BOOKSHELF',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        
+                        IconButton(onPressed: (){
+                          Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>settings()));
+                        },
+                         icon: Padding(
+                           padding: const EdgeInsets.only(left: 82,),
+                           child: Icon(Icons.settings,color: Colors.white,size: 20,),
+                         ))
+                      ],
                     ),
+                  ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 20,bottom: 20),
+                  margin: EdgeInsets.only(top: 20, bottom: 20),
                   width: 360,
-                  // width: MediaQuery.of(context).size.width,
                   height: 40,
-                
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -67,16 +94,107 @@ class _HomescreenState extends State<Homescreen> {
                       ),
                       icon: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Icon(Icons.search,size: 25,color: Colors.grey,),
+                        child: Icon(
+                          Icons.search,
+                          size: 25,
+                          color: Colors.grey,
+                        ),
                       ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
-        ],
+          elevation: 0, // Remove elevation for a flat look
+          backgroundColor: Colors.transparent, // Set background color to transparent
+        ),
       ),
+     
+      body: ListView.separated( 
+      itemBuilder: (context, index){
+        final data=booklistnotifier.value[index];
+          return 
+          ValueListenableBuilder(
+            valueListenable: booklistnotifier,
+            builder:(BuildContext ctx , List<bookmodel>booklistnotifier, Widget? child){
+           return  SizedBox(
+            height: 220,
+            width: double.infinity,
+             child: Card(
+              child:Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Container(
+                        
+                        height: 180,
+                        width: 150,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(image:FileImage(File(data.imagepath)),fit: BoxFit.cover),
+                        ),
+                        
+                 
+                        
+                      ),
+                    
+                    ),
+                    
+                  ),
+              SizedBox(width: 10,),
+              Expanded(child: 
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 30,right: 13),
+                    child: Text('${data.bokname}',style: TextStyle(fontWeight: FontWeight.bold),),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: Divider(thickness:3,color: Colors.black,),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10,right: 70),
+                    child: Text('AUTHOR NAME:${data.authorname}',style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10,right: 85),
+                    child: Text('FLOOR NUMBER:${data.floornumber}',style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10,right: 85,),
+                    child: Text('SHELF NUMBER:${data.shelfnumber}',style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
+                  ),
+                
+                  Padding(
+                    padding: const EdgeInsets.only(right: 150,),
+                    child: IconButton(onPressed: (){},
+                     icon: Icon(Icons.favorite,color: Color.fromARGB(255, 174, 16, 5),)),
+                  ),
+                  
+                ],
+              )
+              )
+                ],
+              )
+              ),
+           );
+            },
+          );
+          
+      },
+      separatorBuilder: (context, index)=>
+        SizedBox(height: 10),
+      itemCount:booklistnotifier.value.length,
+     
+        
+      ),
+   
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(onPressed: (){
         Navigator.of(context).push(MaterialPageRoute(builder: (ctx1)=>AddDetails()));

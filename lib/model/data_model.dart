@@ -1,3 +1,4 @@
+
 import 'package:hive/hive.dart';
 part 'data_model.g.dart';
 
@@ -13,6 +14,8 @@ class bookmodel extends HiveObject {
  final String shelfnumber;
  @HiveField(5)
  final String bookdetails;
+ @HiveField(6)
+ final String imagepath;
   
 
 
@@ -20,5 +23,7 @@ class bookmodel extends HiveObject {
   required this.authorname,
   required this.floornumber,
   required this.shelfnumber,
-  required this.bookdetails});
+  required this.bookdetails,
+  required this.imagepath,
+  });
 }
