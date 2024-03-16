@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:library_project/functions/db_book.dart';
 import 'package:library_project/functions/db_floorshelf.dart';
 import 'package:library_project/model/data_model.dart';
-import 'package:library_project/screens/home.dart';
+
 
 
 
@@ -37,10 +37,7 @@ final shelfnumbercontroller=TextEditingController();
 final bookdetailscontroller=TextEditingController();
 
 final GlobalKey<FormState>_formkey=GlobalKey<FormState>();
-// late String? image;
 
-// File? pickedimage;
-// String? pickedimagepath='';
 String imagepath='';
 int selectedFloor = 0;
 int shelfNumber = 0;
@@ -62,7 +59,7 @@ final floor=[
     return Scaffold(
   
       appBar: AppBar(
-        title: Text('Add book details'),
+        title: const Text('Add book details'),
         backgroundColor: Colors.blue,
       ),
       body: Padding(
@@ -78,8 +75,8 @@ final floor=[
                       width: 200,
                       height: 150,
                       decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 163, 201, 233),
-                        border: Border.all(color: Color.fromARGB(255, 96, 92, 92)),
+                        color: const Color.fromARGB(255, 163, 201, 233),
+                        border: Border.all(color: const Color.fromARGB(255, 96, 92, 92)),
                         borderRadius: BorderRadius.circular(20),
                         image: imagepath !=null
                          ? DecorationImage(image: FileImage(File(imagepath)),
@@ -92,24 +89,24 @@ final floor=[
                     child: IconButton(onPressed: (){
                       pickimagefromgallery();
                     },
-                     icon: Icon(Icons.add_a_photo)),
+                     icon: const Icon(Icons.add_a_photo)),
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
                   TextFormField(
                     controller: booknamecontroller,
                   decoration: InputDecoration(
-                    hintStyle: TextStyle(color: Colors.blue),
+                    hintStyle: const TextStyle(color: Colors.blue),
                     filled: true,
-                    enabledBorder: UnderlineInputBorder(
+                    enabledBorder: const UnderlineInputBorder(
                        borderSide: BorderSide(
                         color: Colors.black12
                       )
                     ),
-                    focusedBorder: OutlineInputBorder(
+                    focusedBorder: const OutlineInputBorder(
                     ),
-                    fillColor: Color.fromARGB(255, 163, 201, 233),
-                    label: Text('bookname',style: TextStyle(color: Color.fromARGB(255, 109, 105, 105))),
+                    fillColor: const Color.fromARGB(255, 163, 201, 233),
+                    label: const Text('bookname',style: TextStyle(color: Color.fromARGB(255, 109, 105, 105))),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15),
                  
@@ -127,23 +124,23 @@ final floor=[
                 
               
                 
-                SizedBox(height: 15,),
+                const SizedBox(height: 15,),
               
               
                 TextFormField(
                     controller: authornamecontroller,
                   decoration: InputDecoration(
-                    hintStyle: TextStyle(color: Colors.blue),
+                    hintStyle: const TextStyle(color: Colors.blue),
                     filled: true,
-                    enabledBorder: UnderlineInputBorder(
+                    enabledBorder: const UnderlineInputBorder(
                        borderSide: BorderSide(
                         color: Colors.black12
                       )
                     ),
-                    focusedBorder: OutlineInputBorder(
+                    focusedBorder: const OutlineInputBorder(
                     ),
-                    fillColor: Color.fromARGB(255, 163, 201, 233),
-                    label: Text('author name',style: TextStyle(color: const Color.fromARGB(255, 100, 96, 96))),
+                    fillColor: const Color.fromARGB(255, 163, 201, 233),
+                    label: const Text('author name',style: TextStyle(color: Color.fromARGB(255, 100, 96, 96))),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30),
         
@@ -158,98 +155,71 @@ final floor=[
                   ),
 
 
-                  SizedBox(height: 15,),
+                  const SizedBox(height: 15,),
 
 
-                  // TextFormField(
-                  //   controller: floornumbercontroller,
-                  // decoration: InputDecoration(
-                  //   hintStyle: TextStyle(color: Colors.blue),
-                  //   filled: true,
-                  //   enabledBorder: UnderlineInputBorder(
-                  //      borderSide: BorderSide(
-                  //       color: Colors.black12
-                  //     )
-                  //   ),
-                  //   focusedBorder: OutlineInputBorder(
-                  //   ),
-                  //   fillColor: Color.fromARGB(255, 163, 201, 233),
-                  //   label: Text('floor number',style: TextStyle(color: const Color.fromARGB(255, 97, 92, 92))),
-                  //   border: OutlineInputBorder(
-                  //     borderRadius: BorderRadius.circular(15),
-                  //   )
-                  // ),
-                  //  validator: (value){
-                  //   if(value==null || value.isEmpty){
-                  //     return ' floor number is required';
-                  //   }
-                  //   return null;
-                  // }
-                  // ),
-                 DropdownButton(
-                  hint: selectedFloor==0?Text('floor number',style: TextStyle(color: const Color.fromARGB(255, 100, 96, 96))):Text('$selectedFloor',style: TextStyle(color: const Color.fromARGB(255, 100, 96, 96))),
-                  // decoration: InputDecoration(
-                  //    filled: true,
-                  //   fillColor:  Color.fromARGB(255, 163, 201, 233),
-                  // ),
-                  items: floorsettinglistnotifier.value.map((e){
-                    return DropdownMenuItem(value: e, child: Text(e.floornumbersetting));
-                  }).toList(),
-                  onChanged:(value){
-                    setState(() {
-                      selectedFloor = int.parse(value!.floornumbersetting);
-                      shelfNumber = int.parse(value.shelfnumbersetting);
-                      selectedShelf=0;
-                    });
-                  print(value);
-                 }),
+                  
+                 Container(
+                  color: const Color.fromARGB(255, 163, 201, 233),
+                   child: DropdownButton(
+                    isExpanded: true,
+                    hint: selectedFloor==0?const Text(
+                      'floor number',
+                      style: 
+                      TextStyle(color: Color.fromARGB(255, 100, 96, 96)))
+                      :Text('$selectedFloor',
+                      style: const TextStyle(
+                        color: Color.fromARGB(255, 100, 96, 96))),
+                    
+                    items: floorsettinglistnotifier.value.map((e){
+                      return DropdownMenuItem(value: e, child: Text(e.floornumbersetting));
+                    }).toList(),
+                    onChanged:(value){
+                      setState(() {
+                        selectedFloor = int.parse(value!.floornumbersetting);
+                        shelfNumber = int.parse(value.shelfnumbersetting);
+                        selectedShelf=0;
+                      });
+                    print(value);
+                   },
+                   
+                  
+                   ),
+                   
+                 ),
   
 
 
                  const SizedBox(height: 15),
 
 
-                  // TextFormField(
-                  //   controller: shelfnumbercontroller,
-                  // decoration: InputDecoration(
-                  //   hintStyle:const TextStyle(color: Colors.blue),
-                  //   filled: true,
-                  //   enabledBorder: const UnderlineInputBorder(
-                  //      borderSide: BorderSide(
-                  //       color: Colors.black12
-                  //     )
-                  //   ),
-                  //   focusedBorder: const OutlineInputBorder(
-                  //   ),
-                  //   fillColor:  Color.fromARGB(255, 163, 201, 233),
-                  //   label:  Text('shelf number',style: TextStyle(color: const Color.fromARGB(255, 113, 109, 109))),
-                  //   border: OutlineInputBorder(
-                  //     borderRadius: BorderRadius.circular(15),
-                  //   )
-                  // ),
-                  //  validator: (value){
-                  //   if(value==null || value.isEmpty){
-                  //     return ' shelf number is required';
-                  //   }
-                  //   return null;
-                  // }
-                  // ),
-                  DropdownButton(
-                   
-                  hint: selectedShelf==0?Text('shelf number',style: TextStyle(color: const Color.fromARGB(255, 100, 96, 96))):Text('${selectedShelf}',style: TextStyle(color: const Color.fromARGB(255, 100, 96, 96))),
-                  // decoration: InputDecoration(
-                  //    filled: true,
-                  //   fillColor:  Color.fromARGB(255, 163, 201, 233),
-                  // ),
-                  items: List.generate(shelfNumber, (index){
-                    return DropdownMenuItem(value: '${index+1}',child: Text('${index+1}'),);
-                  }),
-                  onChanged:(value){
-                    setState(() {
-                      selectedShelf = int.parse(value!);
-                    });
-                  print(value);
-                 }),
+                 
+                  Container(
+                    color: const Color.fromARGB(255, 163, 201, 233),
+                    child: DropdownButton(
+                     isExpanded: true,
+                    hint: selectedShelf==0?const Text(
+                      'shelf number',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 100, 96, 96)))
+                        :Text('${selectedShelf}',
+                        style: const TextStyle(
+                          color: Color.fromARGB(255, 100, 96, 96))),
+                    
+                    items: List.generate(shelfNumber, (index){
+                      return DropdownMenuItem(value: '${index+1}',child: Text('${index+1}'),);
+                    }),
+                    onChanged:(value){
+                      setState(() {
+                        selectedShelf = int.parse(value!);
+                      });
+                    print(value);
+                   },
+                   style: const TextStyle(
+                    color: Colors.black,
+                   ),
+                   ),
+                  ),
   
               
 
@@ -269,8 +239,8 @@ final floor=[
                     ),
                     focusedBorder: const OutlineInputBorder(
                     ),
-                    fillColor: Color.fromARGB(255, 163, 201, 233),
-                    label: Text('bookdetails',style: TextStyle(color: const Color.fromARGB(255, 109, 104, 104))),
+                    fillColor: const Color.fromARGB(255, 163, 201, 233),
+                    label: const Text('bookdetails',style: TextStyle(color: Color.fromARGB(255, 109, 104, 104))),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15),
                     )
@@ -287,14 +257,14 @@ final floor=[
 
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 163, 201, 233),
+                      backgroundColor: const Color.fromARGB(255, 163, 201, 233),
                       side:const BorderSide(width: 1,color: Color.fromARGB(255, 143, 139, 139))
                     ),
                     onPressed: (){
                     addbookdetails(context);
                      
                     },
-                   child: Text('addbookdetails',style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0),),))
+                   child: const Text('addbookdetails',style: TextStyle(color: Color.fromARGB(255, 0, 0, 0),),))
               
                 ],
               ),

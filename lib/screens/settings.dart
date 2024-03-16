@@ -24,7 +24,7 @@ final GlobalKey<FormState>_formkey=GlobalKey<FormState>();
       backgroundColor: Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: Text('settings',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+        title: Text('Settings',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
       ),
       body:Form(
         key: _formkey,
@@ -35,6 +35,7 @@ final GlobalKey<FormState>_formkey=GlobalKey<FormState>();
               padding: const EdgeInsets.only(top: 50,left: 20,right: 20),
               child: TextFormField(
                         controller: enterfloornumber,
+                        keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         hintStyle: TextStyle(color: Colors.blue),
                         filled: true,
@@ -65,6 +66,7 @@ final GlobalKey<FormState>_formkey=GlobalKey<FormState>();
               padding: const EdgeInsets.only(left: 20,right: 20),
               child: TextFormField(
                        controller: entertotalshelf,
+                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         hintStyle: TextStyle(color: Colors.blue),
                         filled: true,
