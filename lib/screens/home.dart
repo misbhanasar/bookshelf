@@ -190,8 +190,13 @@ class _HomescreenState extends State<Homescreen> {
                       ),
                     ),
                   
-                    IconButton(onPressed: (){},
-                     icon: Icon(Icons.delete,color: Color.fromARGB(255, 174, 16, 5),)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        IconButton(onPressed: (){},
+                         icon: Icon(Icons.delete,color: Color.fromARGB(255, 174, 16, 5),)),
+                      ],
+                    ),
                     
                   ],
                 )
