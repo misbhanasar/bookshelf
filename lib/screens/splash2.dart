@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:library_project/screens/home.dart';
+import 'package:library_project/screens/main_page.dart';
 
 class splash2 extends StatelessWidget {
   const splash2({super.key});
@@ -19,7 +20,7 @@ class splash2 extends StatelessWidget {
           Text('BOOKSHELF',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30)),
         
           ElevatedButton(onPressed: (){
-            Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>Homescreen()));
+            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (ctx)=>MainPage()), (route) => false);
           },
            child: Text('Lets Go',style: TextStyle(color: Colors.black),))
           ]

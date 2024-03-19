@@ -1,11 +1,11 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:library_project/functions/db_book.dart';
 import 'package:library_project/functions/db_floorshelf.dart';
 import 'package:library_project/model/data_model.dart';
+
 
 
 
@@ -39,6 +39,7 @@ final bookdetailscontroller=TextEditingController();
 final GlobalKey<FormState>_formkey=GlobalKey<FormState>();
 
 String imagepath='';
+String selectedCategory='';
 int selectedFloor = 0;
 int shelfNumber = 0;
 int selectedShelf = 0;
@@ -47,11 +48,11 @@ int selectedShelf = 0;
 
 
 
-final floor=[
-  '1',
-  '2',
-  '3',
-];
+
+
+
+
+
 
 
   @override
@@ -228,6 +229,9 @@ final floor=[
               
               
                   TextFormField(
+                    minLines: 2,
+                    maxLines: 5,
+                    keyboardType: TextInputType.multiline,
                     controller: bookdetailscontroller,
                   decoration: InputDecoration(
                     hintStyle: const TextStyle(color: Colors.blue),
@@ -252,6 +256,30 @@ final floor=[
                     return null;
                   }
                   ),
+                 const  SizedBox(height: 20,),
+                 
+                  Container(
+                    color:Color.fromARGB(255, 163, 201, 233),
+                    child: DropdownButtonFormField(
+                 hint: selectedCategory.isEmpty?Text('Select a category'):Text(selectedCategory),
+                      decoration: InputDecoration(
+                        
+                        border: OutlineInputBorder(
+                         
+                        )
+                      ),
+                      items: [
+                        DropdownMenuItem(child:Text('select the category'),value:'select the category'),
+                          DropdownMenuItem(child:Text('horror'),value:'horror'),
+                          DropdownMenuItem(child:Text('fitction'),value:'fitction'),
+                          DropdownMenuItem(child:Text('romance'),value:'romance'),
+                          DropdownMenuItem(child:Text('comics'),value:'comics'),
+                          ]
+                      , onChanged: (v){
+                        selectedCategory = v!;
+                      }),
+                  ),
+                  
                  const  SizedBox(height: 30,),
 
 
@@ -295,11 +323,13 @@ if(_formkey.currentState!.validate()){
   final bokname=booknamecontroller.text.trim();
   final authorname=authornamecontroller.text.trim();
   final bookdetails=bookdetailscontroller.text.trim();
+  final Categorydetails=selectedCategory;
   if(bokname.isEmpty||
      authorname.isEmpty||
      selectedFloor==0||
      selectedShelf==0||
      bookdetails.isEmpty||
+     Categorydetails==0||
      imagepath.isEmpty){
       log(bookdetails);
       log('entered here');
@@ -312,8 +342,10 @@ if(_formkey.currentState!.validate()){
          floornumber: selectedFloor.toString(), 
          shelfnumber: selectedShelf.toString(), 
          bookdetails: bookdetails,
+         category: Categorydetails.toString(),
          imagepath: imagepath,
          );
+         log(Categorydetails);
 
 
          await addbook(book);

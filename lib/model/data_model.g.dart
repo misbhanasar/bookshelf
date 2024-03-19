@@ -23,14 +23,15 @@ class bookmodelAdapter extends TypeAdapter<bookmodel> {
       shelfnumber: fields[4] as String,
       bookdetails: fields[5] as String,
       imagepath: fields[6] as String,
-      id: fields[7] as int?,
+      category: fields[7] as String,
+      id: fields[8] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, bookmodel obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(1)
       ..write(obj.bokname)
       ..writeByte(2)
@@ -44,6 +45,8 @@ class bookmodelAdapter extends TypeAdapter<bookmodel> {
       ..writeByte(6)
       ..write(obj.imagepath)
       ..writeByte(7)
+      ..write(obj.category)
+      ..writeByte(8)
       ..write(obj.id);
   }
 
