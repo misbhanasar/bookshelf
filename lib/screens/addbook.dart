@@ -28,7 +28,7 @@ class _AddDetailsState extends State<AddDetails> {
 
 final booknamecontroller=TextEditingController();
 
-final TextEditingController   authornamecontroller=TextEditingController();
+final TextEditingController authornamecontroller=TextEditingController();
 
 final floornumbercontroller=TextEditingController();
 
@@ -203,7 +203,7 @@ int selectedShelf = 0;
                       'shelf number',
                       style: TextStyle(
                         color: Color.fromARGB(255, 100, 96, 96)))
-                        :Text('${selectedShelf}',
+                        :Text('$selectedShelf',
                         style: const TextStyle(
                           color: Color.fromARGB(255, 100, 96, 96))),
                     
@@ -259,21 +259,23 @@ int selectedShelf = 0;
                  const  SizedBox(height: 20,),
                  
                   Container(
-                    color:Color.fromARGB(255, 163, 201, 233),
+                    color:const Color.fromARGB(255, 163, 201, 233),
                     child: DropdownButtonFormField(
-                 hint: selectedCategory.isEmpty?Text('Select a category'):Text(selectedCategory),
-                      decoration: InputDecoration(
+                 hint: selectedCategory.isEmpty?const Text('Select a category'):Text(selectedCategory),
+                      decoration: const InputDecoration(
                         
                         border: OutlineInputBorder(
                          
                         )
                       ),
-                      items: [
-                        DropdownMenuItem(child:Text('select the category'),value:'select the category'),
-                          DropdownMenuItem(child:Text('horror'),value:'horror'),
-                          DropdownMenuItem(child:Text('fitction'),value:'fitction'),
-                          DropdownMenuItem(child:Text('romance'),value:'romance'),
-                          DropdownMenuItem(child:Text('comics'),value:'comics'),
+                      items: const [
+                        DropdownMenuItem(value:'select the category', child:Text('select the category')),
+                          DropdownMenuItem(value:'horror', child:Text('horror')),
+                          DropdownMenuItem(value:'fitction', child:Text('fitction')),
+                          DropdownMenuItem(value:'romance', child:Text('romance')),
+                          DropdownMenuItem(value:'comics', child:Text('comics')),
+                          DropdownMenuItem(value:'tech', child:Text('tech ')),
+                          DropdownMenuItem(value:'novels', child:Text('novels')),
                           ]
                       , onChanged: (v){
                         selectedCategory = v!;
@@ -349,6 +351,7 @@ if(_formkey.currentState!.validate()){
 
 
          await addbook(book);
+         // ignore: use_build_context_synchronously
          Navigator.of(context).pop();
 
 }

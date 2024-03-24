@@ -4,17 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:library_project/model/data_model.dart';
 import 'package:library_project/style/colors.dart';
 
-class bookdetails extends StatefulWidget {
+class Searchview extends StatefulWidget {
 
 final bookmodel data;
   
-  const bookdetails ({super.key,required this.data});
+  const Searchview ({super.key,required this.data});
 
   @override
-  State<bookdetails> createState() => _categorypageState();
+  State<Searchview> createState() => _categorypageState();
 }
 
-class _categorypageState extends State<bookdetails> {
+class _categorypageState extends State<Searchview> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +54,7 @@ class _categorypageState extends State<bookdetails> {
               height: 680,
               width: 700,
               decoration: BoxDecoration(
-                color: Colors.white,borderRadius: BorderRadius.circular(34),
+                color: Color.fromARGB(255, 208, 225, 231),borderRadius: BorderRadius.circular(34),
               ),
               ),
            ),
@@ -68,7 +69,7 @@ class _categorypageState extends State<bookdetails> {
                                    height: 170,
                                    width: 170,
                                  decoration: BoxDecoration(
-                                   color: Color.fromARGB(255, 255, 255, 255),
+                                   color: Color.fromARGB(255, 10, 10, 10),
                                    borderRadius: BorderRadiusDirectional.circular(24)
                                  ),
                                    child: Image(image: FileImage(File(widget.data.imagepath)),),

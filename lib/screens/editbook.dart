@@ -69,6 +69,7 @@ class _AddDetailsState extends State<Editbookdetails> {
                       border: Border.all(
                           color: const Color.fromARGB(255, 96, 92, 92)),
                       borderRadius: BorderRadius.circular(20),
+                      // ignore: unnecessary_null_comparison
                       image: imagepath != null
                           ? DecorationImage(
                               image: FileImage(File(imagepath)),
@@ -177,7 +178,7 @@ class _AddDetailsState extends State<Editbookdetails> {
                         ? const Text('shelf number',
                             style: TextStyle(
                                 color: Color.fromARGB(255, 100, 96, 96)))
-                        : Text('${selectedShelf}',
+                        : Text('$selectedShelf',
                             style: const TextStyle(
                                 color: Color.fromARGB(255, 100, 96, 96))),
                     items: List.generate(shelfNumber, (index) {
@@ -233,19 +234,23 @@ class _AddDetailsState extends State<Editbookdetails> {
                   height: 20,
                 ),
                 Container(
-                  color: Color.fromARGB(255, 163, 201, 233),
+                  color: const Color.fromARGB(255, 163, 201, 233),
                   child: DropdownButtonFormField(
                     hint: Text(selectedCategory),
 
-                      decoration: InputDecoration(border: OutlineInputBorder()),
-                      items: [
+                      decoration: const InputDecoration(border: OutlineInputBorder()),
+                      items: const [
                         DropdownMenuItem(
                           
-                            child: Text('select the category'), value: '1'),
-                        DropdownMenuItem(child: Text('horror'), value: '2'),
-                        DropdownMenuItem(child: Text('fitction'), value: '3'),
-                        DropdownMenuItem(child: Text('romance'), value: '4'),
-                        DropdownMenuItem(child: Text('comics'), value: '5'),
+                            value: '1',
+                          
+                            child: Text('select the category')),
+                        DropdownMenuItem(value: 'horror', child: Text('horror')),
+                        DropdownMenuItem(value: 'fiticton', child: Text('fitction')),
+                        DropdownMenuItem(value: 'romance', child: Text('romance')),
+                        DropdownMenuItem(value: 'comics', child: Text('comics')),
+                         DropdownMenuItem(value:'tech', child:Text('tech ')),
+                          DropdownMenuItem(value:'novels', child:Text('novels')),
                       ],
                       onChanged: (v) {
                         selectedCategory=v!;
@@ -308,19 +313,28 @@ class _AddDetailsState extends State<Editbookdetails> {
     return;
    }
 
-   final data = bookmodel(bokname: booknamecontroller.text, authorname: authornamecontroller.text, floornumber: selectedFloor.toString(), shelfnumber: selectedShelf.toString(), bookdetails: bookdetailscontroller.text, imagepath: imagepath, category: selectedCategory,id: widget.bokmodel!.id!);
+   final data = bookmodel(bokname: booknamecontroller.text, 
+   authorname: authornamecontroller.text, 
+   floornumber: selectedFloor.toString(),
+    shelfnumber: selectedShelf.toString(),
+     bookdetails: bookdetailscontroller.text,
+      imagepath: imagepath,
+       category: selectedCategory,
+       id: widget.bokmodel!.id!);
  
   
 
     log(widget.bokmodel!.id.toString());
     try{
       await updatebooks(data, widget.bokmodel!.id!);
+      // ignore: use_build_context_synchronously
       Navigator.of(context).pop();
     }catch(e){
       log('error');
       log(e.toString());
     }
   }
+  
 
   String? validatordropedown(String? value) {
     if (value == null || value.isEmpty) {
@@ -328,4 +342,9 @@ class _AddDetailsState extends State<Editbookdetails> {
     }
     return null;
   }
+
 }
+
+
+
+
