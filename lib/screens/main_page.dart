@@ -3,7 +3,7 @@ import 'package:library_project/screens/addbook.dart';
 import 'package:library_project/screens/category.dart';
 import 'package:library_project/screens/favourite.dart';
 import 'package:library_project/screens/home.dart';
-import 'package:library_project/screens/preson.dart';
+import 'package:library_project/screens/customer/preson.dart';
 
 ValueNotifier<int> screenNotifier = ValueNotifier(0);
 
@@ -64,8 +64,8 @@ class MainPage extends StatelessWidget {
                 screenNotifier.value = 1;
                 screenNotifier.notifyListeners();
               },
-              icon: Padding(
-                  padding: const EdgeInsets.only(right: 16),
+              icon: const Padding(
+                  padding: EdgeInsets.only(right: 16),
                   child: Column(
                     children: [
                       Icon(
@@ -79,13 +79,13 @@ class MainPage extends StatelessWidget {
                     ],
                   )),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             IconButton(
                 onPressed: () {
                   screenNotifier.value = 2;
                   screenNotifier.notifyListeners();
                 },
-                icon: Column(
+                icon: const Column(
                   children: [
                     Icon(
                       Icons.favorite,
@@ -102,7 +102,7 @@ class MainPage extends StatelessWidget {
                   screenNotifier.value = 3;
                   screenNotifier.notifyListeners();
                 },
-                icon: Column(
+                icon: const Column(
                   children: [
                     Icon(
                       Icons.person,

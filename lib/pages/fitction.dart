@@ -15,7 +15,7 @@ class Fitction extends StatefulWidget {
 }
 
 class _HorrorState extends State<Fitction> {
-  late List<bookmodel> fitction = [];
+  late List<Bookmodel> fitction = [];
 
   @override
   void initState() {
@@ -24,9 +24,9 @@ class _HorrorState extends State<Fitction> {
   }
 
   Future<void> getbookbycategory() async {
-    final bookDB = await Hive.openBox<bookmodel>('book_db');
-    final List<bookmodel> books = [];
-    await Future.forEach(bookDB.values, (bookmodel values) {
+    final bookDB = await Hive.openBox<Bookmodel>('book_db');
+    final List<Bookmodel> books = [];
+    await Future.forEach(bookDB.values, (Bookmodel values) {
       if (values.category == 'fitction') {
         books.add(values);
       }
@@ -50,7 +50,7 @@ class _HorrorState extends State<Fitction> {
         padding: const EdgeInsets.only(top: 15),
         child: ListView.separated(
           itemBuilder: (ctx, index) {
-            final bookmodel value = fitction[index];
+            final Bookmodel value = fitction[index];
            
             return Card(
               child: Row(
@@ -84,7 +84,7 @@ class _HorrorState extends State<Fitction> {
                         padding: const EdgeInsets.only(top: 10,right: 100),
                         child: Row(
                           children: [
-                            Text('${value.bokname}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                            Text(value.bokname,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                           ],
                         ),
                       ),

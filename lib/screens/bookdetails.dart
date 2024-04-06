@@ -2,46 +2,68 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:library_project/model/data_model.dart';
+import 'package:library_project/screens/editbook.dart';
+
 import 'package:library_project/style/colors.dart';
 
-class bookdetails extends StatefulWidget {
 
-final bookmodel data;
+class Bookdetails extends StatefulWidget {
+
+final Bookmodel data;
   
-  const bookdetails ({super.key,required this.data});
+  const Bookdetails ({super.key,required this.data});
 
   @override
-  State<bookdetails> createState() => _categorypageState();
+  State<Bookdetails> createState() => _CategorypageState();
 }
 
-class _categorypageState extends State<bookdetails> {
+class _CategorypageState extends State<Bookdetails> {
+  
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      body: Stack(
+      body: 
+      Stack(
         children: [
           Container(
             
             height: 1000,
             width: 1000,
             
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: color.blue,
               ),
-              child: SafeArea(
+              child:  SafeArea(
                 child: Align(
                   alignment: Alignment.topCenter,
                   child: Column(
+                    
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 20),
+                          IconButton(onPressed: (){
+                            Navigator.pop(context);
+                          },
+                           icon: const Padding(
+                             padding: EdgeInsets.only(right: 100,top: 20),
+                             child: Icon(Icons.arrow_back,color: color.white,),
+                           )),
+                          const Padding(
+                            padding: EdgeInsets.only(right: 130,top: 20),
                             child: Text('BOOKDETAILS',style: TextStyle(color: color.white,fontWeight: FontWeight.bold),),
-                          )
+                          ),
+                        
                         ],
                       ),
+                       Padding(
+                           padding: const EdgeInsets.only(left: 330),
+                           child: IconButton(onPressed: (){
+                             Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>Editbookdetails(bokmodel: widget.data)));
+                           },
+                            icon: const Icon(Icons.edit,size: 20,color: Color.fromARGB(255, 254, 254, 254),)),
+                         ),
                     ],
                   ),
                 ),
@@ -53,6 +75,7 @@ class _categorypageState extends State<bookdetails> {
               height: 680,
               width: 700,
               decoration: BoxDecoration(
+                
                 color: Colors.white,borderRadius: BorderRadius.circular(34),
               ),
               ),
@@ -68,7 +91,8 @@ class _categorypageState extends State<bookdetails> {
                                    height: 170,
                                    width: 170,
                                  decoration: BoxDecoration(
-                                   color: Color.fromARGB(255, 255, 255, 255),
+                                  border: Border.all(color: Colors.black),
+                                   color: const Color.fromARGB(255, 0, 0, 0),
                                    borderRadius: BorderRadiusDirectional.circular(24)
                                  ),
                                    child: Image(image: FileImage(File(widget.data.imagepath)),),
@@ -76,7 +100,7 @@ class _categorypageState extends State<bookdetails> {
                                  ),
                                  Padding(
                                    padding: const EdgeInsets.only(top: 40),
-                                   child: Text(widget.data.bokname,style: TextStyle(fontWeight: FontWeight.bold),),
+                                   child: Text(widget.data.bokname,style: const TextStyle(fontWeight: FontWeight.bold),),
                                  ),
                                  Padding(
                                    padding: const EdgeInsets.only(top: 10),
@@ -93,12 +117,12 @@ class _categorypageState extends State<bookdetails> {
                                    padding: const EdgeInsets.only(right: 30),
                                    child: Text('category:${widget.data.category}'),
                                  ),
-                                 Padding(
-                                   padding: const EdgeInsets.only(top: 10),
+                                 const Padding(
+                                   padding: EdgeInsets.only(top: 10),
                                    child: Text('details  ',style: TextStyle(fontWeight: FontWeight.bold),),
                                  ),
                                  
-                                 Text('${widget.data.bookdetails}')
+                                 Text(widget.data.bookdetails)
                   ],
                   
                  ),

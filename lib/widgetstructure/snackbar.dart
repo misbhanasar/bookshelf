@@ -8,7 +8,7 @@ void customsnackbar(BuildContext context,String message){
       backgroundColor: Colors.grey,
       margin: const EdgeInsets.all(10),
       content: Text(message,
-      style: TextStyle(color: color.white),
+      style: const TextStyle(color: color.white),
       ),
     
     ));

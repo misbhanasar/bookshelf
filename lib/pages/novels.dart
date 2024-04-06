@@ -15,7 +15,7 @@ class Novels extends StatefulWidget {
 }
 
 class _HorrorState extends State<Novels> {
-  late List<bookmodel> novels = [];
+  late List<Bookmodel> novels = [];
 
   @override
   void initState() {
@@ -24,9 +24,9 @@ class _HorrorState extends State<Novels> {
   }
 
   Future<void> getbookbycategory() async {
-    final bookDB = await Hive.openBox<bookmodel>('book_db');
-    final List<bookmodel> books = [];
-    await Future.forEach(bookDB.values, (bookmodel values) {
+    final bookDB = await Hive.openBox<Bookmodel>('book_db');
+    final List<Bookmodel> books = [];
+    await Future.forEach(bookDB.values, (Bookmodel values) {
       if (values.category == 'novels') {
         books.add(values);
       }
@@ -41,8 +41,8 @@ class _HorrorState extends State<Novels> {
     return  Scaffold(
        appBar: AppBar(
         backgroundColor: color.blue,
-        title: Padding(
-          padding: const EdgeInsets.all(8.0),
+        title: const Padding(
+          padding: EdgeInsets.all(8.0),
           child: Text('novels books',style: TextStyle(fontWeight: FontWeight.bold,color: color.white),),
         ),
       ),
@@ -50,7 +50,7 @@ class _HorrorState extends State<Novels> {
         padding: const EdgeInsets.only(top: 15),
         child: ListView.separated(
           itemBuilder: (ctx, index) {
-            final bookmodel value = novels[index];
+            final Bookmodel value = novels[index];
            
             return Card(
               child: Row(
@@ -75,7 +75,7 @@ class _HorrorState extends State<Novels> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 1,),
+                  const SizedBox(width: 1,),
                   Expanded(
                     child: Column(
                        mainAxisAlignment: MainAxisAlignment.start,
@@ -84,7 +84,7 @@ class _HorrorState extends State<Novels> {
                         padding: const EdgeInsets.only(top: 10,right: 100),
                         child: Row(
                           children: [
-                            Text('${value.bokname}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                            Text(value.bokname,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                           ],
                         ),
                       ),
@@ -92,7 +92,7 @@ class _HorrorState extends State<Novels> {
                         padding: const EdgeInsets.only(top: 5,right:80),
                         child: Row(
                           children: [
-                            Text('AUTHOR NAME:           ${value.authorname}',style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold,),),
+                            Text('AUTHOR NAME:           ${value.authorname}',style: const TextStyle(fontSize: 10,fontWeight: FontWeight.bold,),),
                           ],
                         ),
                       ),
@@ -100,7 +100,7 @@ class _HorrorState extends State<Novels> {
                         padding: const EdgeInsets.only(top: 10,right: 85),
                         child: Row(
                           children: [
-                            Text('FLOOR NUMBER:          ${value.floornumber}',style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
+                            Text('FLOOR NUMBER:          ${value.floornumber}',style: const TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
                           ],
                         ),
                       ),
@@ -108,7 +108,7 @@ class _HorrorState extends State<Novels> {
                         padding: const EdgeInsets.only(top: 10,right: 85,),
                         child: Row(
                           children: [
-                            Text('SHELF NUMBER:           ${value.shelfnumber}',style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
+                            Text('SHELF NUMBER:           ${value.shelfnumber}',style: const TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
                           ],
                         ),
                       ),
@@ -120,7 +120,7 @@ class _HorrorState extends State<Novels> {
             );
           },
           separatorBuilder: (ctx, index) {
-            return Divider();
+            return const Divider();
           },
           itemCount: novels.length,
         ),

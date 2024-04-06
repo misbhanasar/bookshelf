@@ -3,8 +3,8 @@ import 'package:library_project/screens/addbook.dart';
 
 
 
-class screenBottomNavigation extends StatelessWidget {
-  const screenBottomNavigation({Key? key});
+class ScreenBottomNavigation extends StatelessWidget {
+  const ScreenBottomNavigation({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,18 +12,18 @@ class screenBottomNavigation extends StatelessWidget {
       body: Container(), 
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(onPressed: (){
-        Navigator.of(context).push(MaterialPageRoute(builder: (ctx1)=>AddDetails()));
+        Navigator.of(context).push(MaterialPageRoute(builder: (ctx1)=>const AddDetails()));
       },
-      child: Icon(Icons.add),
       backgroundColor: Colors.blue,
        shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24)
        ),
+      child: const Icon(Icons.add),
       ),
       bottomNavigationBar: SafeArea(
         child: BottomAppBar(
           notchMargin: 10,
-          shape: CircularNotchedRectangle(),
+          shape: const CircularNotchedRectangle(),
           color: Colors.blue,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -31,7 +31,7 @@ class screenBottomNavigation extends StatelessWidget {
             
             children: [
            IconButton(onPressed: (){},
-            icon: Column(
+            icon: const Column(
               children: [
                 Icon(Icons.home,color: Colors.white,),
                 Text('home',style: TextStyle(fontSize: 10,color: Colors.white),),
@@ -41,8 +41,8 @@ class screenBottomNavigation extends StatelessWidget {
             IconButton(onPressed: (){
               // Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>categorypage(bookmodel, data)));
             },
-             icon: Padding(
-               padding: const EdgeInsets.only(right: 16),
+             icon: const Padding(
+               padding: EdgeInsets.only(right: 16),
                child: Column(
                  children: [
                    Icon(Icons.category,color: Colors.white,),
@@ -53,16 +53,16 @@ class screenBottomNavigation extends StatelessWidget {
                ),
                
                ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
              IconButton(onPressed: (){},
-              icon: Column(
+              icon: const Column(
                 children: [
                   Icon(Icons.favorite,color: Colors.white,),
                   Text('favourite',style: TextStyle(fontSize: 10,color: Colors.white),)
                 ],
               )),
               IconButton(onPressed: (){},
-               icon: Column(
+               icon: const Column(
                  children: [
                    Icon(Icons.person,color: Colors.white,),
                    Text('person',style: TextStyle(fontSize: 10,color: Colors.white),)

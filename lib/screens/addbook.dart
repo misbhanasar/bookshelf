@@ -13,7 +13,7 @@ import 'package:library_project/model/data_model.dart';
 
 
 class AddDetails extends StatefulWidget {
-  final bookmodel? bokmodel;
+  final Bookmodel? bokmodel;
 
   const AddDetails({super.key, this.bokmodel});
 
@@ -79,6 +79,7 @@ int selectedShelf = 0;
                         color: const Color.fromARGB(255, 163, 201, 233),
                         border: Border.all(color: const Color.fromARGB(255, 96, 92, 92)),
                         borderRadius: BorderRadius.circular(20),
+                        // ignore: unnecessary_null_comparison
                         image: imagepath !=null
                          ? DecorationImage(image: FileImage(File(imagepath)),
                         fit: BoxFit.cover,
@@ -325,29 +326,29 @@ if(_formkey.currentState!.validate()){
   final bokname=booknamecontroller.text.trim();
   final authorname=authornamecontroller.text.trim();
   final bookdetails=bookdetailscontroller.text.trim();
-  final Categorydetails=selectedCategory;
+  final categorydetails=selectedCategory;
   if(bokname.isEmpty||
      authorname.isEmpty||
      selectedFloor==0||
      selectedShelf==0||
      bookdetails.isEmpty||
-     Categorydetails==0||
+     categorydetails==0||
      imagepath.isEmpty){
       log(bookdetails);
       log('entered here');
       return;
 
      }
-      final book= bookmodel( 
+      final book= Bookmodel( 
         bokname: bokname, 
         authorname: authorname,
          floornumber: selectedFloor.toString(), 
          shelfnumber: selectedShelf.toString(), 
          bookdetails: bookdetails,
-         category: Categorydetails.toString(),
+         category: categorydetails.toString(),
          imagepath: imagepath,
          );
-         log(Categorydetails);
+         log(categorydetails);
 
 
          await addbook(book);

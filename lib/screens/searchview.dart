@@ -6,15 +6,15 @@ import 'package:library_project/style/colors.dart';
 
 class Searchview extends StatefulWidget {
 
-final bookmodel data;
+final Bookmodel data;
   
   const Searchview ({super.key,required this.data});
 
   @override
-  State<Searchview> createState() => _categorypageState();
+  State<Searchview> createState() => _CategorypageState();
 }
 
-class _categorypageState extends State<Searchview> {
+class _CategorypageState extends State<Searchview> {
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +26,10 @@ class _categorypageState extends State<Searchview> {
             height: 1000,
             width: 1000,
             
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: color.blue,
               ),
-              child: SafeArea(
+              child: const SafeArea(
                 child: Align(
                   alignment: Alignment.topCenter,
                   child: Column(
@@ -38,7 +38,7 @@ class _categorypageState extends State<Searchview> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(top: 20),
+                            padding: EdgeInsets.only(top: 20),
                             child: Text('BOOKDETAILS',style: TextStyle(color: color.white,fontWeight: FontWeight.bold),),
                           )
                         ],
@@ -54,7 +54,7 @@ class _categorypageState extends State<Searchview> {
               height: 680,
               width: 700,
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 208, 225, 231),borderRadius: BorderRadius.circular(34),
+                color: const Color.fromARGB(255, 254, 254, 254),borderRadius: BorderRadius.circular(34),
               ),
               ),
            ),
@@ -69,7 +69,7 @@ class _categorypageState extends State<Searchview> {
                                    height: 170,
                                    width: 170,
                                  decoration: BoxDecoration(
-                                   color: Color.fromARGB(255, 10, 10, 10),
+                                   color: const Color.fromARGB(255, 10, 10, 10),
                                    borderRadius: BorderRadiusDirectional.circular(24)
                                  ),
                                    child: Image(image: FileImage(File(widget.data.imagepath)),),
@@ -77,7 +77,7 @@ class _categorypageState extends State<Searchview> {
                                  ),
                                  Padding(
                                    padding: const EdgeInsets.only(top: 40),
-                                   child: Text(widget.data.bokname,style: TextStyle(fontWeight: FontWeight.bold),),
+                                   child: Text(widget.data.bokname,style: const TextStyle(fontWeight: FontWeight.bold),),
                                  ),
                                  Padding(
                                    padding: const EdgeInsets.only(top: 10),
@@ -94,12 +94,12 @@ class _categorypageState extends State<Searchview> {
                                    padding: const EdgeInsets.only(right: 30),
                                    child: Text('category:${widget.data.category}'),
                                  ),
-                                 Padding(
-                                   padding: const EdgeInsets.only(top: 10),
+                                 const Padding(
+                                   padding: EdgeInsets.only(top: 10),
                                    child: Text('details  ',style: TextStyle(fontWeight: FontWeight.bold),),
                                  ),
                                  
-                                 Text('${widget.data.bookdetails}')
+                                 Text(widget.data.bookdetails)
                   ],
                   
                  ),

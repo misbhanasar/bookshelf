@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 part 'data_model.g.dart';
 
 @HiveType(typeId: 1)
-class bookmodel extends HiveObject {
+class Bookmodel extends HiveObject {
   @HiveField(1)
   final String bokname;
  @HiveField(2)
@@ -25,7 +25,7 @@ final String category;
   
 
 
-  bookmodel({required this.bokname,
+  Bookmodel({required this.bokname,
   required this.authorname,
   required this.floornumber,
   required this.shelfnumber,

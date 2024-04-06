@@ -4,14 +4,14 @@ import 'package:library_project/model/floor_model.dart';
 import 'package:library_project/screens/home.dart';
 
 
-class settings extends StatefulWidget {
-  const settings({super.key});
+class Settings extends StatefulWidget {
+  const Settings({super.key});
 
   @override
-  State<settings> createState() => _settingsState();
+  State<Settings> createState() => _settingsState();
 }
 
-class _settingsState extends State<settings> {
+class _settingsState extends State<Settings> {
 final enterfloornumber=TextEditingController();
 final entertotalshelf=TextEditingController();
 final GlobalKey<FormState>_formkey=GlobalKey<FormState>();
@@ -21,10 +21,10 @@ final GlobalKey<FormState>_formkey=GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: Text('Settings',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+        title: const Text('Settings',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
       ),
       body:Form(
         key: _formkey,
@@ -37,17 +37,17 @@ final GlobalKey<FormState>_formkey=GlobalKey<FormState>();
                         controller: enterfloornumber,
                         keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        hintStyle: TextStyle(color: Colors.blue),
+                        hintStyle: const TextStyle(color: Colors.blue),
                         filled: true,
-                        enabledBorder: UnderlineInputBorder(
+                        enabledBorder: const UnderlineInputBorder(
                            borderSide: BorderSide(
                             color: Colors.black12
                           )
                         ),
-                        focusedBorder: OutlineInputBorder(
+                        focusedBorder: const OutlineInputBorder(
                         ),
-                        fillColor: Color.fromARGB(255, 163, 201, 233),
-                        label: Text('enter the floor number here',style: TextStyle(color: Color.fromARGB(255, 109, 105, 105))),
+                        fillColor: const Color.fromARGB(255, 163, 201, 233),
+                        label: const Text('enter the floor number here',style: TextStyle(color: Color.fromARGB(255, 109, 105, 105))),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
@@ -60,7 +60,7 @@ final GlobalKey<FormState>_formkey=GlobalKey<FormState>();
                   }
                       ),
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
         
             Padding(
               padding: const EdgeInsets.only(left: 20,right: 20),
@@ -68,17 +68,17 @@ final GlobalKey<FormState>_formkey=GlobalKey<FormState>();
                        controller: entertotalshelf,
                        keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        hintStyle: TextStyle(color: Colors.blue),
+                        hintStyle: const TextStyle(color: Colors.blue),
                         filled: true,
-                        enabledBorder: UnderlineInputBorder(
+                        enabledBorder: const UnderlineInputBorder(
                            borderSide: BorderSide(
                             color: Colors.black12
                           )
                         ),
-                        focusedBorder: OutlineInputBorder(
+                        focusedBorder: const OutlineInputBorder(
                         ),
-                        fillColor: Color.fromARGB(255, 163, 201, 233),
-                        label: Text('enter the total  shelf number',style: TextStyle(color: Color.fromARGB(255, 109, 105, 105))),
+                        fillColor: const Color.fromARGB(255, 163, 201, 233),
+                        label: const Text('enter the total  shelf number',style: TextStyle(color: Color.fromARGB(255, 109, 105, 105))),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
@@ -91,7 +91,7 @@ final GlobalKey<FormState>_formkey=GlobalKey<FormState>();
                   }
                       ),
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
         
             Padding(
               padding: const EdgeInsets.only(top: 20,left: 130),
@@ -102,10 +102,10 @@ final GlobalKey<FormState>_formkey=GlobalKey<FormState>();
                 
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromARGB(255, 163, 201, 233),
+                backgroundColor: const Color.fromARGB(255, 163, 201, 233),
                 side:const BorderSide(width: 1,color: Color.fromARGB(255, 143, 139, 139))
               ),
-               child: Text('add details',style: TextStyle(color: const Color.fromARGB(255, 128, 115, 115)),)),
+               child: const Text('add details',style: TextStyle(color: Color.fromARGB(255, 128, 115, 115)),)),
             )
           ],
         ),
@@ -130,7 +130,7 @@ final GlobalKey<FormState>_formkey=GlobalKey<FormState>();
            shelfnumbersetting: shelfnumbersetting);
 
            await addsettingdetailsToDb(floor);
-           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx)=>Homescreen()));
+           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx)=>const Homescreen()));
     }
     
   }

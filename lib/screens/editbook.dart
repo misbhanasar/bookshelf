@@ -7,7 +7,7 @@ import 'package:library_project/functions/db_floorshelf.dart';
 import 'package:library_project/model/data_model.dart';
 
 class Editbookdetails extends StatefulWidget {
-  final bookmodel? bokmodel;
+  final Bookmodel? bokmodel;
 
   const Editbookdetails({super.key,required this.bokmodel});
 
@@ -163,7 +163,6 @@ class _AddDetailsState extends State<Editbookdetails> {
                         shelfNumber = int.parse(value.shelfnumbersetting);
                         selectedShelf = 0;
                       });
-                      print(value);
                     },
                     
                   ),
@@ -313,7 +312,7 @@ class _AddDetailsState extends State<Editbookdetails> {
     return;
    }
 
-   final data = bookmodel(bokname: booknamecontroller.text, 
+   final data = Bookmodel(bokname: booknamecontroller.text, 
    authorname: authornamecontroller.text, 
    floornumber: selectedFloor.toString(),
     shelfnumber: selectedShelf.toString(),

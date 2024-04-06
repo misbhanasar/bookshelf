@@ -1,14 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:library_project/functions/db_book.dart';
+import 'package:library_project/functions/db_user.dart';
 import 'package:library_project/model/data_model.dart';
-import 'package:library_project/screens/addperson.dart';
+import 'package:library_project/screens/customer/addperson.dart';
 import 'package:library_project/screens/bookdetails.dart';
-import 'package:library_project/screens/editbook.dart';
 import 'package:library_project/screens/searchscreen.dart';
-import 'package:library_project/screens/searchview.dart';
 import 'package:library_project/screens/settings.dart';
-import 'package:library_project/widgetstructure/snackbar.dart';
+
 
 
 
@@ -22,15 +21,17 @@ class Homescreen extends StatefulWidget {
 class _HomescreenState extends State<Homescreen> {
   late TextEditingController searchcontroller;
   int selectedindex=0;
-  List<bookmodel>searchbookresult=[];
+  List<Bookmodel>searchbookresult=[];
  List previoussearchiteams=[];
 
   @override
   void initState() {
-    // TODO: implement initState
+  
     super.initState();
     searchcontroller=TextEditingController();
     getallbooks();
+    getuser();
+
   
   }
   
@@ -38,6 +39,7 @@ class _HomescreenState extends State<Homescreen> {
   
 
   
+  @override
   Widget build(BuildContext context) {
     final List<String>category=[
      ''
@@ -48,12 +50,12 @@ class _HomescreenState extends State<Homescreen> {
     return Scaffold(
    
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(150),
+        preferredSize: const Size.fromHeight(150),
         
         child: AppBar(
           flexibleSpace: Container(
-            padding: EdgeInsets.only(top: 15, left: 20, bottom: 10),
-            decoration: BoxDecoration(
+            padding: const EdgeInsets.only(top: 15, left: 20, bottom: 10),
+            decoration: const BoxDecoration(
               color: Colors.blue,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(20),
@@ -69,8 +71,8 @@ class _HomescreenState extends State<Homescreen> {
                   child: Center(
                     child: Row(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 100),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 100),
                           child: Text(
                             'BOOKSHELF',
                             style: TextStyle(
@@ -83,10 +85,10 @@ class _HomescreenState extends State<Homescreen> {
                         ),
                         
                         IconButton(onPressed: (){
-                          Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>settings()));
+                          Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const Settings()));
                         },
-                         icon: Padding(
-                           padding: const EdgeInsets.only(left: 82,),
+                         icon: const Padding(
+                           padding: EdgeInsets.only(left: 82,),
                            child: Icon(Icons.settings,color: Colors.white,size: 20,),
                          ))
                       ],
@@ -94,7 +96,7 @@ class _HomescreenState extends State<Homescreen> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 20, bottom: 20),
+                  margin: const EdgeInsets.only(top: 20, bottom: 20),
                   width: 360,
                   height: 40,
                   alignment: Alignment.center,
@@ -106,16 +108,17 @@ class _HomescreenState extends State<Homescreen> {
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'search here.....',
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                         color: Colors.grey,
                       ),
                       icon: Padding(
                         padding: const EdgeInsets.only(),
                         child: IconButton(onPressed: (){
-                         showSearch(context: context,
-                          delegate: StudentSearchDelegate(booklistnotifier.value));
+                        //  showSearch(context: context,
+                        //   delegate: StudentSearchDelegate(booklistnotifier.value));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const Searchscreen()));
                         },
-                         icon: Icon(Icons.search,size: 25,color: Colors.grey,)),
+                         icon: const Icon(Icons.search,size: 25,color: Colors.grey,)),
                         
                       ),
                     ),
@@ -131,14 +134,14 @@ class _HomescreenState extends State<Homescreen> {
      
       body: ValueListenableBuilder(
             valueListenable: booklistnotifier,
-            builder:(BuildContext ctx , List<bookmodel>list, Widget? child){
+            builder:(BuildContext ctx , List<Bookmodel>list, Widget? child){
            return ListView.builder(
             itemCount: list.length,
             itemBuilder: (context,index){
               final data = list[index];
               return  GestureDetector(
               onTap: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>bookdetails(data: data,)));
+                Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>Bookdetails(data: data,)));
               },
               
               
@@ -178,7 +181,7 @@ class _HomescreenState extends State<Homescreen> {
                         ),
                      
                         
-                    SizedBox(width: 1,),
+                    const SizedBox(width: 1,),
                     Expanded(child: 
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -187,7 +190,7 @@ class _HomescreenState extends State<Homescreen> {
                           padding: const EdgeInsets.only(top: 10,right: 100),
                           child: Row(
                             children: [
-                              Text('${data.bokname}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                              Text(data.bokname,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                             ],
                           ),
                         ),
@@ -199,7 +202,7 @@ class _HomescreenState extends State<Homescreen> {
                           padding: const EdgeInsets.only(top: 5,right:80),
                           child: Row(
                             children: [
-                              Text('AUTHOR NAME:           ${data.authorname}',style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold,),),
+                              Text('AUTHOR NAME:           ${data.authorname}',style: const TextStyle(fontSize: 10,fontWeight: FontWeight.bold,),),
                             ],
                           ),
                         ),
@@ -207,7 +210,7 @@ class _HomescreenState extends State<Homescreen> {
                           padding: const EdgeInsets.only(top: 10,right: 85),
                           child: Row(
                             children: [
-                              Text('FLOOR NUMBER:          ${data.floornumber}',style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
+                              Text('FLOOR NUMBER:          ${data.floornumber}',style: const TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
                             ],
                           ),
                         ),
@@ -215,7 +218,7 @@ class _HomescreenState extends State<Homescreen> {
                           padding: const EdgeInsets.only(top: 10,right: 85,),
                           child: Row(
                             children: [
-                              Text('SHELF NUMBER:           ${data.shelfnumber}',style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
+                              Text('SHELF NUMBER:           ${data.shelfnumber}',style: const TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
                              
                             ],
                           ),
@@ -226,36 +229,63 @@ class _HomescreenState extends State<Homescreen> {
                          
                       
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                            
                              
-                            IconButton(onPressed: (){
+                            // IconButton(onPressed: (){
                               
-                              Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>Editbookdetails(bokmodel: data,)));
-                            },
-                             icon: Padding(
-                               padding: const EdgeInsets.only(left: 70),
-                               child: Icon(Icons.edit,color: Color.fromARGB(255, 174, 16, 5),size: 15,),
-                             )),
+                            //   // Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>Editbookdetails(bokmodel: data,)));
+                            // },
+                            //  icon: const Padding(
+                            //    padding: EdgeInsets.only(left: 70),
+                            //    child: Icon(Icons.edit,color: Color.fromARGB(255, 174, 16, 5),size: 15,),
+                            //  )),
                              
-                            IconButton(onPressed: (){
-                             showsnackbarmessage(context);
-                              if(data.id!=null){
-                                deletebookdetails(data.id!);
-                              }else{
-                              print('book details is null.unable to delete');
-                              }
-                            },
-                             icon: Icon(Icons.delete,color: Color.fromARGB(255, 174, 16, 5),size: 15,)),
+                            Padding(
+                              padding: const EdgeInsets.only(top :30),
+                              child: IconButton(onPressed: (){
+                               showDialog(context: context,
+                                 builder: (context)=>AlertDialog(
+                                 title: const Text('Alert'),
+                                 content: const Text('are you sure to delete'),
+                                 actions: [
+                                  TextButton(onPressed: (){
+                                   if(data.id!=null){
+                                  deletebookdetails(data.id!);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(content: Text('book  is deleted sucessfulyy'),
+                                    duration: Duration(seconds: 2),
+                                    ));
+                                }else{
+                                print('book details is null.unable to delete');
+                                }
+                                Navigator.of(context).pop();
+                                  },
+                                   child: const Text('yes')),
+                                   TextButton(onPressed: (){
+                                    Navigator.of(context).pop();
+                                   },
+                                    child: const Text('no'))
+                                 ],
+                                 ),
+                                 );
+                                
+                               
+                              },
+                               icon: const Icon(Icons.delete,color: Color.fromARGB(255, 174, 16, 5),size: 15,)),
+                            ),
 
 
-                            TextButton.icon(onPressed: (){
-                              Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>Addcustomer()));
-                            },
-                            
-                         icon: Icon(Icons.book,size: 10,),
-                          label: Text('booknow',style: TextStyle(fontSize: 10,),)),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 30),
+                              child: TextButton.icon(onPressed: (){
+                                Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>const Addcustomer()));
+                              },
+                              
+                                                       icon: const Icon(Icons.book,size: 10,),
+                                                        label: const Text('booknow',style: TextStyle(fontSize: 10,),)),
+                            ),
                           ],
                           
                         ),
@@ -287,7 +317,7 @@ class _HomescreenState extends State<Homescreen> {
 
 Future<void>showsnackbarmessage(BuildContext context)async{
 ScaffoldMessenger.of(context).showSnackBar(
-  SnackBar(content: Text('bookdetails is deleted'),
+  const SnackBar(content: Text('bookdetails is deleted'),
   ));
 }
 
@@ -295,78 +325,78 @@ ScaffoldMessenger.of(context).showSnackBar(
 
 //search bar
 
-class StudentSearchDelegate extends SearchDelegate<List<bookmodel>> {
-  final List<bookmodel> recipes;
+// class StudentSearchDelegate extends SearchDelegate<List<bookmodel>> {
+//   final List<bookmodel> recipes;
 
-  StudentSearchDelegate(this.recipes);
+//   StudentSearchDelegate(this.recipes);
 
-  @override
-  List<Widget> buildActions(BuildContext context) {
-    return [
-      IconButton(
-        icon: Icon(Icons.clear),
-        onPressed: () {
-          query = '';
-        },
-      ),
-    ];
-  }
+//   @override
+//   List<Widget> buildActions(BuildContext context) {
+//     return [
+//       IconButton(
+//         icon: const Icon(Icons.clear),
+//         onPressed: () {
+//           query = '';
+//         },
+//       ),
+//     ];
+//   }
 
-  @override
-  Widget buildLeading(BuildContext context) {
-    return IconButton(
-      icon: Icon(Icons.arrow_back),
-      onPressed: () {
-        close(context, []);
-      },
-    );
-  }
+//   @override
+//   Widget buildLeading(BuildContext context) {
+//     return IconButton(
+//       icon: const Icon(Icons.arrow_back),
+//       onPressed: () {
+//         close(context, []);
+//       },
+//     );
+//   }
 
-  @override
-  Widget buildResults(BuildContext context) {
-    return _buildSearchResults(context, query);
-  }
+//   @override
+//   Widget buildResults(BuildContext context) {
+//     return _buildSearchResults(context, query);
+//   }
 
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    return _buildSearchResults(context, query);
-  }
+//   @override
+//   Widget buildSuggestions(BuildContext context) {
+//     return _buildSearchResults(context, query);
+//   }
 
-  Widget _buildSearchResults(BuildContext context, String query) {
-    final List<bookmodel> searchResults = booklistnotifier.value
-        .where(
-            (book) => book.bokname.toLowerCase().contains(query.toLowerCase()))
-        .toList();
+//   Widget _buildSearchResults(BuildContext context, String query) {
+//     final List<bookmodel> searchResults = booklistnotifier.value
+//         .where(
+//             (book) => book.bokname.toLowerCase().contains(query.toLowerCase()))
+//         .toList();
 
-    if (query.isEmpty) {
-      return Container();
-    }
+//     if (query.isEmpty) {
+//       return Container();
+//     }
 
-    return ListView.separated(
-      itemBuilder: (context, index) {
-        final data = searchResults[index];
-        return ListTile(
+//     return ListView.separated(
+//       itemBuilder: (context, index) {
+//         final data = searchResults[index];
+//         return ListTile(
           
-          leading: CircleAvatar(
-            backgroundImage: FileImage(File(data.imagepath)),
-          ),
-          title: Text(data.bokname),
-          subtitle: Text(data.authorname),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Searchview(data: data),
-              ),
-            );
-          },
+//           leading: CircleAvatar(
+//             backgroundImage: FileImage(File(data.imagepath)),
+//           ),
+//           title: Text(data.bokname),
+//           subtitle: Text(data.authorname),
+//           onTap: () {
+//             Navigator.push(
+//               context,
+//               MaterialPageRoute(
+//                 builder: (context) => Searchview(data: data),
+//               ),
+//             );
+//           },
          
-        );
-      },
-      separatorBuilder: (context, index) {
-        return Divider();
-      },
-      itemCount: searchResults.length,
-    );
-  }
-}
+//         );
+//       },
+//       separatorBuilder: (context, index) {
+//         return const Divider();
+//       },
+//       itemCount: searchResults.length,
+//     );
+//   }
+// }

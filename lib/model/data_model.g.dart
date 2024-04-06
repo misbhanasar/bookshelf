@@ -6,17 +6,17 @@ part of 'data_model.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class bookmodelAdapter extends TypeAdapter<bookmodel> {
+class bookmodelAdapter extends TypeAdapter<Bookmodel> {
   @override
   final int typeId = 1;
 
   @override
-  bookmodel read(BinaryReader reader) {
+  Bookmodel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return bookmodel(
+    return Bookmodel(
       bokname: fields[1] as String,
       authorname: fields[2] as String,
       floornumber: fields[3] as String,
@@ -29,7 +29,7 @@ class bookmodelAdapter extends TypeAdapter<bookmodel> {
   }
 
   @override
-  void write(BinaryWriter writer, bookmodel obj) {
+  void write(BinaryWriter writer, Bookmodel obj) {
     writer
       ..writeByte(8)
       ..writeByte(1)

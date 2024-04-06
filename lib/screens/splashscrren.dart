@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:library_project/screens/splash2.dart';
 import 'package:lottie/lottie.dart';
 
-class splashscreen extends StatefulWidget {
-  const splashscreen({super.key});
+class Splashscreen extends StatefulWidget {
+  const Splashscreen({super.key});
 
   @override
-  State<splashscreen> createState() => _splashscreenState();
+  State<Splashscreen> createState() => _SplashscreenState();
 }
 
-class _splashscreenState extends State<splashscreen> {
+class _SplashscreenState extends State<Splashscreen> {
   get splash=>null;
 
   @override
@@ -31,7 +31,7 @@ class _splashscreenState extends State<splashscreen> {
         Center(
       child: LottieBuilder.asset('assets/lottie/Animation - 1709318165089.json'),
     )],),
-     nextScreen: splash2(),
+     nextScreen: const Splash2(),
      splashIconSize: 400,
      backgroundColor: Colors.blue,
      
@@ -40,6 +40,7 @@ class _splashscreenState extends State<splashscreen> {
   }
 }
 navigatortospalsh(BuildContext context)async{
-  await Future.delayed(Duration(milliseconds:  60000),(){});
-Navigator.pushReplacement(context, MaterialPageRoute(builder:(ctx)=>splash2()));
+  await Future.delayed(const Duration(milliseconds:  60000),(){});
+// ignore: use_build_context_synchronously
+Navigator.pushReplacement(context, MaterialPageRoute(builder:(ctx)=>const Splash2()));
 }
