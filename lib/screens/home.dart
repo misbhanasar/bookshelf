@@ -1,12 +1,19 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:library_project/functions/db_book.dart';
+
 import 'package:library_project/functions/db_user.dart';
 import 'package:library_project/model/data_model.dart';
 import 'package:library_project/screens/customer/addperson.dart';
 import 'package:library_project/screens/bookdetails.dart';
-import 'package:library_project/screens/searchscreen.dart';
-import 'package:library_project/screens/settings.dart';
+import 'package:library_project/screens/customer/appbaritems.dart/aboutus.dart';
+import 'package:library_project/screens/customer/appbaritems.dart/privacypolicy.dart';
+import 'package:library_project/screens/customer/appbaritems.dart/searchscreen.dart';
+import 'package:library_project/screens/customer/appbaritems.dart/addfloor.dart';
+import 'package:library_project/screens/customer/appbaritems.dart/settings.dart';
+import 'package:library_project/screens/customer/appbaritems.dart/terms.dart';
+import 'package:library_project/style/colors.dart';
 
 
 class Homescreen extends StatefulWidget {
@@ -18,6 +25,7 @@ class Homescreen extends StatefulWidget {
 
 class _HomescreenState extends State<Homescreen> {
   late TextEditingController searchcontroller;
+  late Box<Bookmodel>favouritebox;
   int selectedindex = 0;
   List<Bookmodel> searchbookresult = [];
   List previoussearchiteams = [];
@@ -29,6 +37,7 @@ class _HomescreenState extends State<Homescreen> {
     getallbooks();
     getuser();
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +45,123 @@ class _HomescreenState extends State<Homescreen> {
 
     getallbooks();
     return Scaffold(
+      drawer: Drawer(
+       child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListView(
+            children: [
+              
+              Row(
+                children: [
+                  Icon(Icons.settings,size: 30),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('SETTINGS'),
+                  ),
+                 
+                ],
+                
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 10,right: 10),
+                child: Divider(),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20,left: 10),
+                child: Title(color: Colors.black, child: Text('GENERAL',style: TextStyle(fontSize: 10),)
+                     
+                     ),
+              ),
+              GestureDetector(
+                onTap: (){
+                  Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>AboutUs()));
+                },
+                child: Card(
+                             child: ListTile(
+                
+                leading: CircleAvatar(
+                  backgroundImage: AssetImage('assets/images/Screenshot 2024-03-20 214134.png'),
+                  
+                ),
+                title:Text('ABOUT US',style: TextStyle(color: const Color.fromARGB(255, 2, 0, 0)),),
+                subtitle: Text('detail vishion of app',style: TextStyle(color: Colors.grey),),
+                             ),
+                           ),
+              ),
+            Card(
+              
+            child:Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 20,left: 10,right: 10),
+                  child: Container(
+                    child: Row(
+                      children: [
+                        Title(color: Colors.black, child: Text('Terms and Conition'),
+                        
+                        ),
+                        IconButton(onPressed: (){
+                           Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>TermsandCondition()));
+                        },
+                         icon: Padding(
+                           padding: const EdgeInsets.only(left: 90),
+                           child: Icon(Icons.navigate_next),
+                         ))
+                      ],
+                    ),
+                    
+                  ),
+                ),
+                
+              ],
+            )
+            
+              
+            ),
+            Card(
+              
+            child:Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 20,left: 10,right: 10),
+                  child: Container(
+                    child: Row(
+                      children: [
+                        Title(color: Colors.black, child: Text('Privacy Policy'),
+                        
+                        ),
+                        IconButton(onPressed: (){
+                           Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>PrivacyPolicy()));
+                        },
+                         icon: Padding(
+                           padding: const EdgeInsets.only(left: 130),
+                           child: Icon(Icons.navigate_next),
+                         ))
+                      ],
+                    ),
+                    
+                  ),
+                ),
+                
+              ],
+            )
+            
+              
+            ),
+            
+            
+            ],
+            
+          ),
+          
+        ),
+        
+       ),
+
+      ),
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(150),
         child: AppBar(
@@ -52,40 +178,68 @@ class _HomescreenState extends State<Homescreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 30, left: 3),
-                  child: Center(
-                    child: Row(
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(left: 100),
-                          child: Text(
-                            'BOOKSHELF',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 1,
-                              color: Colors.white,
-                            ),
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(left: 100),
+                        child: Text(
+                          'BOOKSHELF',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1,
+                            color: Colors.white,
                           ),
                         ),
-                        IconButton(
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (ctx) => const Settings()));
-                            },
-                            icon: const Padding(
-                              padding: EdgeInsets.only(
-                                left: 82,
-                              ),
-                              child: Icon(
-                                Icons.settings,
-                                color: Colors.white,
-                                size: 20,
-                              ),
-                            ))
-                      ],
-                    ),
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (ctx) => const addFloor()));
+                          },
+                          icon: const Padding(
+                            padding: EdgeInsets.only(
+                              left: 70,
+                            ),
+                            child: Column(
+                              children: [
+                                Icon(
+                                  Icons.add,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
+                                Text('add floor',style: TextStyle(fontSize: 10,color: color.white),)
+                              ],
+                            ),
+                          )),
+                          //  IconButton(
+                          // onPressed: () {
+                          //  Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>settings()));
+                          // },
+                          // icon: const Padding(
+                          //   padding: EdgeInsets.only(
+                          //     left: 10,
+                          //   ),
+                          //   child: Column(
+                          //     children: [
+                          //       Icon(
+                          //         Icons.settings,
+                          //         color: Colors.white,
+                          //         size: 20,
+                                  
+                          //       ),
+                          //       Text('settins',style: TextStyle(fontSize: 10,color: color.white),)
+                          //     ],
+                          //   ),
+                            
+                            
+                          // ),
+                          // ),
+                         
+                          
+                    ],
                   ),
                 ),
                 Container(
@@ -94,7 +248,7 @@ class _HomescreenState extends State<Homescreen> {
                   height: 40,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Color.fromARGB(255, 255, 255, 255),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: TextFormField(
@@ -150,6 +304,12 @@ class _HomescreenState extends State<Homescreen> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Card(
+                       elevation: 15,
+                      color: const Color.fromARGB(255, 236, 236, 236),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                       
                           child: Column(
                         children: [
                           Row(
@@ -256,7 +416,9 @@ class _HomescreenState extends State<Homescreen> {
                                       //  )),Padding(
                                        Padding(
                                          padding: const EdgeInsets.only(top: 30,),
-                                         child: IconButton(onPressed: (){},
+                                         child: IconButton(onPressed: (){
+                                         
+                                         },
                                           icon: Icon(Icons.favorite_border,
                                           color: Color.fromARGB(255, 188, 6, 24),
                                           size: 20,)),

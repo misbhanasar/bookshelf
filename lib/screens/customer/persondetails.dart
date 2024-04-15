@@ -146,17 +146,8 @@ class _PersonDetailsState extends State<PersonDetails> {
                             widget.data.phnonenumber,
                           ),
                           IconButton(
-                              onPressed: () async {
-                                final Uri url = Uri(
-                                  scheme: 'tel',
-                                  path: widget.data.phnonenumber,
-                                );
-                                if (await canLaunchUrl(url)) {
-                                   await launchUrl(url);
-                                }else{
-                                  print('cannot launch this');
-                                  
-                                }
+                              onPressed: ()  {
+                               launch('tel:${widget.data.phnonenumber}');
                               },
                               icon: Padding(
                                 padding: const EdgeInsets.only(),

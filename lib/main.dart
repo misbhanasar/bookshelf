@@ -12,9 +12,9 @@ import 'package:library_project/screens/splashscrren.dart';
 Future<void> main()async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
- if( !Hive.isAdapterRegistered(bookmodelAdapter().typeId))
+ if( !Hive.isAdapterRegistered(BookmodelAdapter().typeId))
  {
- Hive.registerAdapter(bookmodelAdapter());
+ Hive.registerAdapter(BookmodelAdapter());
  }
  if(!Hive.isAdapterRegistered(FloorModelAdapter().typeId)){
   Hive.registerAdapter(FloorModelAdapter());

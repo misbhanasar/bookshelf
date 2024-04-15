@@ -2,14 +2,28 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:library_project/functions/db_book.dart';
+import 'package:library_project/functions/db_fav.dart';
 import 'package:library_project/model/data_model.dart';
 import 'package:library_project/screens/bookdetails.dart';
-import 'package:library_project/screens/customer/addperson.dart';
+
 import 'package:library_project/style/colors.dart';
 
-class FavouritePage extends StatelessWidget {
+class FavouritePage extends StatefulWidget {
   const FavouritePage({super.key});
 
+  @override
+  State<FavouritePage> createState() => _FavouritePageState();
+
+}
+
+
+class _FavouritePageState extends State<FavouritePage> {
+  @override
+  void initState() {
+    super.initState();
+    addFavouriteBook();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -21,13 +35,7 @@ class FavouritePage extends StatelessWidget {
           'favourite',
           style: TextStyle(color: color.white, fontWeight: FontWeight.bold),
         ),
-        // actions: [
-        //   IconButton(onPressed: (){
-        //  Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>EditPerson(usermodel: widget.data)));
-        //   },
-        //    icon: const Icon(Icons.edit,color: color.white,)
-        //    ),
-        // ],
+       
         centerTitle: true,
         iconTheme: const IconThemeData(
           color: color.white

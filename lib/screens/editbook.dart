@@ -319,6 +319,7 @@ class _AddDetailsState extends State<Editbookdetails> {
      bookdetails: bookdetailscontroller.text,
       imagepath: imagepath,
        category: selectedCategory,
+       favorite: false,
        id: widget.bokmodel!.id!);
  
   

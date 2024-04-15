@@ -36,6 +36,7 @@ final shelfnumbercontroller=TextEditingController();
 
 final bookdetailscontroller=TextEditingController();
 
+
 final GlobalKey<FormState>_formkey=GlobalKey<FormState>();
 
 String imagepath='';
@@ -347,6 +348,7 @@ if(_formkey.currentState!.validate()){
          bookdetails: bookdetails,
          category: categorydetails.toString(),
          imagepath: imagepath,
+         favorite: false,
          );
          log(categorydetails);
 

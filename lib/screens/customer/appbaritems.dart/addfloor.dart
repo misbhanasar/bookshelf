@@ -4,14 +4,14 @@ import 'package:library_project/model/floor_model.dart';
 import 'package:library_project/screens/home.dart';
 
 
-class Settings extends StatefulWidget {
-  const Settings({super.key});
+class addFloor extends StatefulWidget {
+  const addFloor({super.key});
 
   @override
-  State<Settings> createState() => _settingsState();
+  State<addFloor> createState() => _settingsState();
 }
 
-class _settingsState extends State<Settings> {
+class _settingsState extends State<addFloor> {
 final enterfloornumber=TextEditingController();
 final entertotalshelf=TextEditingController();
 final GlobalKey<FormState>_formkey=GlobalKey<FormState>();
@@ -24,7 +24,7 @@ final GlobalKey<FormState>_formkey=GlobalKey<FormState>();
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: const Text('Settings',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+        title: const Text('AddFloor & Shelf',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
       ),
       body:Form(
         key: _formkey,

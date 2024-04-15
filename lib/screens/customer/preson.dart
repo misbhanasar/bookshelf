@@ -173,68 +173,71 @@ class _PersonPageState extends State<PersonPage> {
                           ),
                         ));
                       },
-                      child: Card(
-                        elevation: 15,
-                        color: const Color.fromARGB(255, 236, 236, 236),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: ListTile(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => PersonDetails(
-                                      data: data,
-                                    )));
-                          },
-                          title: Row(
-                            children: [Text('Name:     ${data.name}')],
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Card(
+                          elevation: 15,
+                          color: Color.fromARGB(255, 249, 3, 3),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
-                          subtitle: Row(
-                            children: [
-                              Text('Phn no:      ${data.phnonenumber}'),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 100),
-                                child: IconButton(
-                                    onPressed: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                          title: const Text('Alert'),
-                                          content: const Text(
-                                              'are you sure to delete'),
-                                          actions: [
-                                            TextButton(
-                                                onPressed: () {
-                                                  if (data.id != null) {
-                                                    deleteuser(data.id!);
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .showSnackBar(
-                                                            const SnackBar(
-                                                      content: Text(
-                                                          'person details is deleted sucessfulyy'),
-                                                      duration:
-                                                          Duration(seconds: 2),
-                                                    ));
-                                                  } else {}
-                                                  Navigator.of(context).pop();
-                                                },
-                                                child: const Text('yes')),
-                                            TextButton(
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                                child: const Text('no'))
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                    icon: const Icon(
-                                      Icons.delete,
-                                      color: Color.fromARGB(255, 168, 4, 20),
-                                    )),
-                              )
-                            ],
+                          child: ListTile(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => PersonDetails(
+                                        data: data,
+                                      )));
+                            },
+                            title: Row(
+                              children: [Text('Name:     ${data.name}')],
+                            ),
+                            subtitle: Row(
+                              children: [
+                                Text('Phn no:      ${data.phnonenumber}'),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 100),
+                                  child: IconButton(
+                                      onPressed: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => AlertDialog(
+                                            title: const Text('Alert'),
+                                            content: const Text(
+                                                'are you sure to delete'),
+                                            actions: [
+                                              TextButton(
+                                                  onPressed: () {
+                                                    if (data.id != null) {
+                                                      deleteuser(data.id!);
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                              const SnackBar(
+                                                        content: Text(
+                                                            'person details is deleted sucessfulyy'),
+                                                        duration:
+                                                            Duration(seconds: 2),
+                                                      ));
+                                                    } else {}
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: const Text('yes')),
+                                              TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: const Text('no'))
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                      icon: const Icon(
+                                        Icons.delete,
+                                        color: Color.fromARGB(255, 214, 202, 203),
+                                      )),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),

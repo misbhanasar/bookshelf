@@ -20,6 +20,9 @@ class Bookmodel extends HiveObject {
 final String category;
  @HiveField(8)
   int? id;
+  @HiveField(9)
+  final bool favorite;
+  
   
   
   
@@ -32,6 +35,7 @@ final String category;
   required this.bookdetails,
   required this.imagepath,
   required this.category,
+  required this.favorite,
   
   this.id
   

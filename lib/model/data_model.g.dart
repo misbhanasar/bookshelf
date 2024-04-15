@@ -6,7 +6,7 @@ part of 'data_model.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class bookmodelAdapter extends TypeAdapter<Bookmodel> {
+class BookmodelAdapter extends TypeAdapter<Bookmodel> {
   @override
   final int typeId = 1;
 
@@ -24,6 +24,7 @@ class bookmodelAdapter extends TypeAdapter<Bookmodel> {
       bookdetails: fields[5] as String,
       imagepath: fields[6] as String,
       category: fields[7] as String,
+      favorite: fields[9] as bool,
       id: fields[8] as int?,
     );
   }
@@ -31,7 +32,7 @@ class bookmodelAdapter extends TypeAdapter<Bookmodel> {
   @override
   void write(BinaryWriter writer, Bookmodel obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(1)
       ..write(obj.bokname)
       ..writeByte(2)
@@ -47,7 +48,9 @@ class bookmodelAdapter extends TypeAdapter<Bookmodel> {
       ..writeByte(7)
       ..write(obj.category)
       ..writeByte(8)
-      ..write(obj.id);
+      ..write(obj.id)
+      ..writeByte(9)
+      ..write(obj.favorite);
   }
 
   @override
@@ -56,7 +59,7 @@ class bookmodelAdapter extends TypeAdapter<Bookmodel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is bookmodelAdapter &&
+      other is BookmodelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
