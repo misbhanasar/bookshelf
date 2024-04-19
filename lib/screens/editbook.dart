@@ -329,6 +329,7 @@ class _AddDetailsState extends State<Editbookdetails> {
       await updatebooks(data, widget.bokmodel!.id!);
       // ignore: use_build_context_synchronously
       Navigator.of(context).pop();
+      Navigator.of(context).pop();
     }catch(e){
       log('error');
       log(e.toString());

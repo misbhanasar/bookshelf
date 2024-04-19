@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:library_project/functions/db_book.dart';
 import 'package:library_project/functions/db_user.dart';
 import 'package:library_project/model/user_model.dart';
 import 'package:library_project/style/colors.dart';
@@ -9,7 +10,8 @@ import 'package:library_project/widgetstructure/calender.dart';
 import 'package:library_project/widgetstructure/textformfield.dart';
 
 class Addcustomer extends StatefulWidget {
-  const Addcustomer({super.key});
+  final String?selectedBookName;
+  const Addcustomer({super.key,this.selectedBookName});
 
   @override
   State<Addcustomer> createState() => _AddcustomerState();
@@ -26,6 +28,13 @@ class _AddcustomerState extends State<Addcustomer> {
 
   DateTime? collectedbookdate;
   DateTime? duedatebook;
+
+  @override
+  void initState() {
+  
+    super.initState();
+    bookdetailstakencontroller.text=widget.selectedBookName??'';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +122,7 @@ class _AddcustomerState extends State<Addcustomer> {
                       child: customTextfeild(
                           controller: bookdetailstakencontroller,
                           keyboardTYpe: TextInputType.text,
-                          labelText: 'enter book name',
+                          labelText: 'book name',
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'enter book name';
@@ -121,7 +130,13 @@ class _AddcustomerState extends State<Addcustomer> {
                             return null;
                           },
                           autovalidateMode: AutovalidateMode.onUserInteraction),
+
+                    
                     ),
+
+                    // DropdownButton(items: booklistnotifier.value.map((e){
+                    //   return DropdownMenuItem(child: Text(e.bokname),value: e.id,);
+                    // }).toList(), onChanged: (value){}),
                     const SizedBox(height: 10),
                     Row(
                       children: [
@@ -219,10 +234,14 @@ class _AddcustomerState extends State<Addcustomer> {
       lastDate: DateTime(2100),
     );
     if (pickedDate != null) {
+      if (collectedbookdate!=null &&pickedDate.isBefore(collectedbookdate!) ) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('due books cannot be before collected date')));
+      }else{
       setState(() {
         duedatebook = pickedDate;
         duedatecontroller.text = DateFormat('yyy-MM-dd').format(pickedDate);
       });
+      }
     } else {
       setState(() {
         duedatebook = null;

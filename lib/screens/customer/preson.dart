@@ -45,7 +45,7 @@ class _PersonPageState extends State<PersonPage> {
                   Color.fromARGB(255, 159, 165, 169),
                 ], begin: Alignment.bottomCenter, end: Alignment.topCenter)),
           ),
-          bottom: TabBar(
+          bottom: const TabBar(
             tabs: [
               Tab(
                 text: 'all person details',
@@ -54,7 +54,7 @@ class _PersonPageState extends State<PersonPage> {
                 text: 'due details',
               )
             ],
-            labelColor: const Color.fromARGB(255, 255, 255, 255),
+            labelColor: Color.fromARGB(255, 255, 255, 255),
             unselectedLabelColor: Color.fromARGB(255, 97, 89, 89),
             labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             unselectedLabelStyle:
@@ -159,7 +159,7 @@ class _PersonPageState extends State<PersonPage> {
                 }).toList();
 
                 if (userwithduebooks.isEmpty) {
-                  return Text('no due books');
+                  return const Text('no due books');
                 }
 
                 return ListView.separated(
@@ -177,7 +177,7 @@ class _PersonPageState extends State<PersonPage> {
                         padding: const EdgeInsets.all(20),
                         child: Card(
                           elevation: 15,
-                          color: Color.fromARGB(255, 249, 3, 3),
+                          color: const Color.fromARGB(255, 249, 3, 3),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),

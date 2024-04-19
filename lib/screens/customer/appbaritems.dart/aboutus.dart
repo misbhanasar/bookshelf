@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:library_project/style/colors.dart';
+
 
 class AboutUs extends StatelessWidget {
   const AboutUs({super.key});
@@ -9,7 +9,7 @@ class AboutUs extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
        backgroundColor: const Color.fromARGB(255, 193, 200, 204),
-        title: Center(child: Text('ABOUT US')),
+        title: const Center(child: Text('ABOUT US')),
       ),
       body:  SingleChildScrollView(
         child: SafeArea(

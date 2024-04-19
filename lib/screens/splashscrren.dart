@@ -17,7 +17,7 @@ class _SplashscreenState extends State<Splashscreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
     navigatortospalsh(context);
   }

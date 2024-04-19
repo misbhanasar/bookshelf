@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:library_project/style/colors.dart';
 
-class settings extends StatelessWidget {
-  const settings({super.key});
+class Setting extends StatelessWidget {
+  const Setting({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -50,26 +50,26 @@ class settings extends StatelessWidget {
       body: SafeArea(
         
         child: ListView(
-          padding: EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24),
           children: [
            Padding(
              padding: const EdgeInsets.all(8.0),
              child: Row(
                children: [
-                 Title(color: Colors.black, child: Text('GENERAL',style: TextStyle(fontSize: 10),)
+                 Title(color: Colors.black, child: const Text('GENERAL',style: TextStyle(fontSize: 10),)
                  
                  ),
                ],
              ),
            ),
-           Card(
+           const Card(
              child: ListTile(
               
               leading: CircleAvatar(
                 backgroundImage: AssetImage('assets/images/Screenshot 2024-03-20 214134.png'),
                 
               ),
-              title:Text('ABOUT APP',style: TextStyle(color: const Color.fromARGB(255, 2, 0, 0)),),
+              title:Text('ABOUT APP',style: TextStyle(color: Color.fromARGB(255, 2, 0, 0)),),
               subtitle: Text('detail vishion of app',style: TextStyle(color: Colors.grey),),
              ),
            ),

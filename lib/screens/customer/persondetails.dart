@@ -16,7 +16,6 @@ class PersonDetails extends StatefulWidget {
 class _PersonDetailsState extends State<PersonDetails> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getuser();
   }
@@ -149,8 +148,8 @@ class _PersonDetailsState extends State<PersonDetails> {
                               onPressed: ()  {
                                launch('tel:${widget.data.phnonenumber}');
                               },
-                              icon: Padding(
-                                padding: const EdgeInsets.only(),
+                              icon: const Padding(
+                                padding: EdgeInsets.only(),
                                 child: Icon(Icons.call,
                                     color: Color.fromARGB(255, 56, 164, 60)),
                               )),

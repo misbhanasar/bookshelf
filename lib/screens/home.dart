@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:library_project/functions/db_book.dart';
+import 'package:library_project/functions/db_fav.dart';
 
 import 'package:library_project/functions/db_user.dart';
 import 'package:library_project/model/data_model.dart';
@@ -11,10 +12,9 @@ import 'package:library_project/screens/customer/appbaritems.dart/aboutus.dart';
 import 'package:library_project/screens/customer/appbaritems.dart/privacypolicy.dart';
 import 'package:library_project/screens/customer/appbaritems.dart/searchscreen.dart';
 import 'package:library_project/screens/customer/appbaritems.dart/addfloor.dart';
-import 'package:library_project/screens/customer/appbaritems.dart/settings.dart';
 import 'package:library_project/screens/customer/appbaritems.dart/terms.dart';
 import 'package:library_project/style/colors.dart';
-
+import 'package:library_project/widgetstructure/snackbar.dart';
 
 class Homescreen extends StatefulWidget {
   const Homescreen({Key? key}) : super(key: key);
@@ -25,7 +25,7 @@ class Homescreen extends StatefulWidget {
 
 class _HomescreenState extends State<Homescreen> {
   late TextEditingController searchcontroller;
-  late Box<Bookmodel>favouritebox;
+  late Box<Bookmodel> favouritebox;
   int selectedindex = 0;
   List<Bookmodel> searchbookresult = [];
   List previoussearchiteams = [];
@@ -37,7 +37,6 @@ class _HomescreenState extends State<Homescreen> {
     getallbooks();
     getuser();
   }
-  
 
   @override
   Widget build(BuildContext context) {
@@ -46,121 +45,114 @@ class _HomescreenState extends State<Homescreen> {
     getallbooks();
     return Scaffold(
       drawer: Drawer(
-       child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ListView(
-            children: [
-              
-              Row(
-                children: [
-                  Icon(Icons.settings,size: 30),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('SETTINGS'),
-                  ),
-                 
-                ],
-                
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10,right: 10),
-                child: Divider(),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20,left: 10),
-                child: Title(color: Colors.black, child: Text('GENERAL',style: TextStyle(fontSize: 10),)
-                     
-                     ),
-              ),
-              GestureDetector(
-                onTap: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>AboutUs()));
-                },
-                child: Card(
-                             child: ListTile(
-                
-                leading: CircleAvatar(
-                  backgroundImage: AssetImage('assets/images/Screenshot 2024-03-20 214134.png'),
-                  
-                ),
-                title:Text('ABOUT US',style: TextStyle(color: const Color.fromARGB(255, 2, 0, 0)),),
-                subtitle: Text('detail vishion of app',style: TextStyle(color: Colors.grey),),
-                             ),
-                           ),
-              ),
-            Card(
-              
-            child:Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListView(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 20,left: 10,right: 10),
-                  child: Container(
-                    child: Row(
-                      children: [
-                        Title(color: Colors.black, child: Text('Terms and Conition'),
-                        
-                        ),
-                        IconButton(onPressed: (){
-                           Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>TermsandCondition()));
-                        },
-                         icon: Padding(
-                           padding: const EdgeInsets.only(left: 90),
-                           child: Icon(Icons.navigate_next),
-                         ))
-                      ],
+                const Row(
+                  children: [
+                    Icon(Icons.settings, size: 30),
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text('SETTINGS'),
                     ),
-                    
+                  ],
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(left: 10, right: 10),
+                  child: Divider(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20, left: 10),
+                  child: Title(
+                      color: Colors.black,
+                      child: const Text(
+                        'GENERAL',
+                        style: TextStyle(fontSize: 10),
+                      )),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (ctx) => const AboutUs()));
+                  },
+                  child: const Card(
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundImage: AssetImage(
+                            'assets/images/Screenshot 2024-03-20 214134.png'),
+                      ),
+                      title: Text(
+                        'ABOUT US',
+                        style: TextStyle(color: Color.fromARGB(255, 2, 0, 0)),
+                      ),
+                      subtitle: Text(
+                        'detail vishion of app',
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    ),
                   ),
                 ),
-                
-              ],
-            )
-            
-              
-            ),
-            Card(
-              
-            child:Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 20,left: 10,right: 10),
-                  child: Container(
-                    child: Row(
-                      children: [
-                        Title(color: Colors.black, child: Text('Privacy Policy'),
-                        
-                        ),
-                        IconButton(onPressed: (){
-                           Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>PrivacyPolicy()));
-                        },
-                         icon: Padding(
-                           padding: const EdgeInsets.only(left: 130),
-                           child: Icon(Icons.navigate_next),
-                         ))
-                      ],
+                Card(
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 20, left: 10, right: 10),
+                      child: Row(
+                        children: [
+                          Title(
+                            color: Colors.black,
+                            child: const Text('Terms and Conition'),
+                          ),
+                          IconButton(
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (ctx) =>
+                                        const TermsandCondition()));
+                              },
+                              icon: const Padding(
+                                padding: EdgeInsets.only(left: 90),
+                                child: Icon(Icons.navigate_next),
+                              ))
+                        ],
+                      ),
                     ),
-                    
-                  ),
-                ),
-                
+                  ],
+                )),
+                Card(
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 20, left: 10, right: 10),
+                      child: Row(
+                        children: [
+                          Title(
+                            color: Colors.black,
+                            child: const Text('Privacy Policy'),
+                          ),
+                          IconButton(
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (ctx) => const PrivacyPolicy()));
+                              },
+                              icon: const Padding(
+                                padding: EdgeInsets.only(left: 130),
+                                child: Icon(Icons.navigate_next),
+                              ))
+                        ],
+                      ),
+                    ),
+                  ],
+                )),
               ],
-            )
-            
-              
             ),
-            
-            
-            ],
-            
           ),
-          
         ),
-        
-       ),
-
       ),
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(150),
@@ -197,7 +189,7 @@ class _HomescreenState extends State<Homescreen> {
                       IconButton(
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (ctx) => const addFloor()));
+                                builder: (ctx) => const AddFloor()));
                           },
                           icon: const Padding(
                             padding: EdgeInsets.only(
@@ -210,35 +202,14 @@ class _HomescreenState extends State<Homescreen> {
                                   color: Colors.white,
                                   size: 20,
                                 ),
-                                Text('add floor',style: TextStyle(fontSize: 10,color: color.white),)
+                                Text(
+                                  'add floor',
+                                  style: TextStyle(
+                                      fontSize: 10, color: color.white),
+                                )
                               ],
                             ),
                           )),
-                          //  IconButton(
-                          // onPressed: () {
-                          //  Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>settings()));
-                          // },
-                          // icon: const Padding(
-                          //   padding: EdgeInsets.only(
-                          //     left: 10,
-                          //   ),
-                          //   child: Column(
-                          //     children: [
-                          //       Icon(
-                          //         Icons.settings,
-                          //         color: Colors.white,
-                          //         size: 20,
-                                  
-                          //       ),
-                          //       Text('settins',style: TextStyle(fontSize: 10,color: color.white),)
-                          //     ],
-                          //   ),
-                            
-                            
-                          // ),
-                          // ),
-                         
-                          
                     ],
                   ),
                 ),
@@ -248,7 +219,7 @@ class _HomescreenState extends State<Homescreen> {
                   height: 40,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 255, 255, 255),
+                    color: const Color.fromARGB(255, 255, 255, 255),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: TextFormField(
@@ -291,6 +262,7 @@ class _HomescreenState extends State<Homescreen> {
               itemCount: list.length,
               itemBuilder: (context, index) {
                 final data = list[index];
+
                 return GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
@@ -304,210 +276,251 @@ class _HomescreenState extends State<Homescreen> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Card(
-                       elevation: 15,
-                      color: const Color.fromARGB(255, 236, 236, 236),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                       
+                          elevation: 15,
+                          color: const Color.fromARGB(255, 236, 236, 236),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
                           child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Container(
-                                    height: 100,
-                                    width: 100,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image:
-                                              FileImage(File(data.imagepath)),
-                                          fit: BoxFit.cover),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 1,
-                              ),
-                              Expanded(
-                                  child: Column(
+                              Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 10, right: 100),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          data.bokname,
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20),
+                                    padding: const EdgeInsets.all(10),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: Container(
+                                        height: 100,
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: FileImage(
+                                                  File(data.imagepath)),
+                                              fit: BoxFit.cover),
                                         ),
-                                      ],
+                                      ),
                                     ),
                                   ),
-                                  // Padding(
-                                  //   padding: const EdgeInsets.only(right: 20),
-                                  //   child: Divider(thickness:1,color: Colors.black,),
-                                  // ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 5, right: 80),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'AUTHOR NAME:           ${data.authorname}',
-                                          style: const TextStyle(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                  const SizedBox(
+                                    width: 1,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 10, right: 85),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'FLOOR NUMBER:          ${data.floornumber}',
-                                          style: const TextStyle(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                      top: 10,
-                                      right: 85,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'SHELF NUMBER:           ${data.shelfnumber}',
-                                          style: const TextStyle(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
+                                  Expanded(
+                                      child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      // IconButton(onPressed: (){
-
-                                      //   // Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>Editbookdetails(bokmodel: data,)));
-                                      // },
-                                      //  icon: const Padding(
-                                      //    padding: EdgeInsets.only(left: 70),
-                                      //    child: Icon(Icons.edit,color: Color.fromARGB(255, 174, 16, 5),size: 15,),
-                                      //  )),Padding(
-                                       Padding(
-                                         padding: const EdgeInsets.only(top: 30,),
-                                         child: IconButton(onPressed: (){
-                                         
-                                         },
-                                          icon: Icon(Icons.favorite_border,
-                                          color: Color.fromARGB(255, 188, 6, 24),
-                                          size: 20,)),
-                                       ),
-
                                       Padding(
-                                        padding: const EdgeInsets.only(top: 30),
-                                        child: IconButton(
-                                            onPressed: () {
-                                              showDialog(
-                                                context: context,
-                                                builder: (context) =>
-                                                    AlertDialog(
-                                                  title: const Text('Alert'),
-                                                  content: const Text(
-                                                      'are you sure to delete'),
-                                                  actions: [
-                                                    TextButton(
-                                                        onPressed: () {
-                                                          if (data.id != null) {
-                                                            deletebookdetails(
-                                                                data.id!);
-                                                            ScaffoldMessenger
-                                                                    .of(context)
-                                                                .showSnackBar(
-                                                                    const SnackBar(
-                                                              content: Text(
-                                                                  'book  is deleted sucessfulyy'),
-                                                              duration:
-                                                                  Duration(
-                                                                      seconds:
-                                                                          2),
-                                                            ));
-                                                          } else {
-                                                            print(
-                                                                'book details is null.unable to delete');
-                                                          }
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                        },
-                                                        child:
-                                                            const Text('yes')),
-                                                    TextButton(
-                                                        onPressed: () {
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                        },
-                                                        child: const Text('no'))
-                                                  ],
-                                                ),
-                                              );
-                                            },
-                                            icon: const Icon(
-                                              Icons.delete,
-                                              color: Color.fromARGB(
-                                                  255, 174, 16, 5),
-                                              size: 15,
-                                            )),
-                                      ),
-
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 30),
-                                        child: TextButton.icon(
-                                            onPressed: () {
-                                              Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                      builder: (ctx) =>
-                                                          const Addcustomer()));
-                                            },
-                                            icon: const Icon(
-                                              Icons.book,
-                                              size: 10,
+                                        padding: const EdgeInsets.only(
+                                            top: 10, right: 100),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              data.bokname,
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
                                             ),
-                                            label: const Text(
-                                              'booknow',
-                                              style: TextStyle(
-                                                fontSize: 10,
-                                              ),
-                                            )),
+                                          ],
+                                        ),
                                       ),
-                                      
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 5, right: 80),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              'AUTHOR NAME:           ${data.authorname}',
+                                              style: const TextStyle(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 10, right: 85),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              'FLOOR NUMBER:          ${data.floornumber}',
+                                              style: const TextStyle(
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                          top: 10,
+                                          right: 85,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              'SHELF NUMBER:           ${data.shelfnumber}',
+                                              style: const TextStyle(
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                              top: 30,
+                                            ),
+                                            child: IconButton(
+                                                onPressed: () async {
+                                                  await addFavourite(
+                                                      data.id.toString());
+                                                  setState(() {});
+                                                  customsnackbar(context,
+                                                      'book adeed to favourite');
+                                                },
+                                                icon: data.favorite == false
+                                                    ? const Icon(
+                                                        Icons.favorite_border,
+                                                        color: Color.fromARGB(
+                                                            255, 188, 6, 24),
+                                                        size: 20,
+                                                      )
+                                                    : const Icon(
+                                                        Icons.favorite,
+                                                        color: Color.fromARGB(
+                                                            255, 188, 6, 24),
+                                                        size: 20,
+                                                      )),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 30),
+                                            child: IconButton(
+                                                onPressed: () {
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (context) =>
+                                                        AlertDialog(
+                                                      title:
+                                                          const Text('Alert'),
+                                                      content: const Text(
+                                                          'are you sure to delete'),
+                                                      actions: [
+                                                        TextButton(
+                                                            onPressed: () {
+                                                              if (data.id !=
+                                                                  null) {
+                                                                deletebookdetails(
+                                                                    data.id!);
+                                                                ScaffoldMessenger.of(
+                                                                        context)
+                                                                    .showSnackBar(
+                                                                        const SnackBar(
+                                                                  content: Text(
+                                                                      'book  is deleted sucessfulyy'),
+                                                                  duration:
+                                                                      Duration(
+                                                                          seconds:
+                                                                              2),
+                                                                ));
+                                                              } else {
+                                                                print(
+                                                                    'book details is null.unable to delete');
+                                                              }
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                            },
+                                                            child: const Text(
+                                                                'yes')),
+                                                        TextButton(
+                                                            onPressed: () {
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                            },
+                                                            child: const Text(
+                                                                'no'))
+                                                      ],
+                                                    ),
+                                                  );
+                                                },
+                                                icon: const Icon(
+                                                  Icons.delete,
+                                                  color: Color.fromARGB(
+                                                      255, 174, 16, 5),
+                                                  size: 15,
+                                                )),
+                                          ),
+                                          Builder(
+                                            builder: (BuildContext context) {
+                                              return IconButton(
+                                                onPressed: () {
+                                                  Navigator.of(context)
+                                                      .push(MaterialPageRoute(
+                                                    builder: (ctx) =>
+                                                        Addcustomer(
+                                                            selectedBookName:
+                                                                data.bokname),
+                                                  ));
+                                                },
+                                                icon: Padding(
+                                                  padding: const EdgeInsets.only(top: 30,),
+                                                  child: const Icon(
+                                                    Icons.book,
+                                                    size: 20,
+                                                  ),
+                                                ),
+                                                
+                                                // const Text(
+                                                //   'booknow',
+                                                //   style: TextStyle(
+                                                //     fontSize: 10,
+                                                //   ),
+                                                // ),
+                                              );
+                                             
+                                            },
+                                          ),
+                                         
+                                          // Padding(
+                                          //   padding:
+                                          //       const EdgeInsets.only(top: 30),
+                                          //   child: bui(
+                                          //     child: TextButton.icon(
+                                          //         onPressed: () {
+                                          //           Navigator.of(context).push(
+                                          //               MaterialPageRoute(
+                                          //                   builder: (ctx) =>
+                                          //                       const Addcustomer(selectedBookName: data.bokname)));
+                                          //         },
+                                          //         icon: const Icon(
+                                          //           Icons.book,
+                                          //           size: 10,
+                                          //         ),
+                                          //         label: const Text(
+                                          //           'booknow',
+                                          //           style: TextStyle(
+                                          //             fontSize: 10,
+                                          //           ),
+                                          //         )),
+                                          //   ),
+                                          // ),
+                                        ],
+                                      ),
                                     ],
-                                  ),
+                                  ))
                                 ],
-                              ))
+                              ),
                             ],
-                          ),
-                        ],
-                      )),
+                          )),
                     ),
                   ),
                 );

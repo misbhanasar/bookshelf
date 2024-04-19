@@ -4,14 +4,14 @@ import 'package:library_project/model/floor_model.dart';
 import 'package:library_project/screens/home.dart';
 
 
-class addFloor extends StatefulWidget {
-  const addFloor({super.key});
+class AddFloor extends StatefulWidget {
+  const AddFloor({super.key});
 
   @override
-  State<addFloor> createState() => _settingsState();
+  State<AddFloor> createState() => _SettingsState();
 }
 
-class _settingsState extends State<addFloor> {
+class _SettingsState extends State<AddFloor> {
 final enterfloornumber=TextEditingController();
 final entertotalshelf=TextEditingController();
 final GlobalKey<FormState>_formkey=GlobalKey<FormState>();

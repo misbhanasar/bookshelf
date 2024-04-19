@@ -1,12 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+
 import 'package:library_project/functions/db_book.dart';
 import 'package:library_project/functions/db_fav.dart';
 import 'package:library_project/model/data_model.dart';
 import 'package:library_project/screens/bookdetails.dart';
 
 import 'package:library_project/style/colors.dart';
+import 'package:library_project/widgetstructure/snackbar.dart';
 
 class FavouritePage extends StatefulWidget {
   const FavouritePage({super.key});
@@ -22,6 +24,8 @@ class _FavouritePageState extends State<FavouritePage> {
   void initState() {
     super.initState();
     addFavouriteBook();
+   
+    getallbooks();
   }
   
   @override
@@ -53,8 +57,14 @@ class _FavouritePageState extends State<FavouritePage> {
         ),
       ),
       body: ValueListenableBuilder(
-        valueListenable: booklistnotifier,
+        valueListenable: favouritebooklistnotifier,
         builder: (BuildContext ctx, List<Bookmodel> list, Widget? child) {
+          if (list.isEmpty) {
+            return Center(
+              child: Text('no iteams found',style: TextStyle(fontSize: 10,),),
+            );
+            
+          }else{
           return ListView.builder(
               itemCount: list.length,
               itemBuilder: (context, index) {
@@ -115,10 +125,7 @@ class _FavouritePageState extends State<FavouritePage> {
                                       ],
                                     ),
                                   ),
-                                  // Padding(
-                                  //   padding: const EdgeInsets.only(right: 20),
-                                  //   child: Divider(thickness:1,color: Colors.black,),
-                                  // ),
+                                  
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         top: 10, right: 80),
@@ -148,8 +155,11 @@ class _FavouritePageState extends State<FavouritePage> {
                                       //  )),Padding(
                                        Padding(
                                          padding: const EdgeInsets.only(top: 10,),
-                                         child: IconButton(onPressed: (){},
-                                          icon: Icon(Icons.favorite_border,
+                                         child: IconButton(onPressed: ()async{
+                                         await removeFavourite(data.id.toString());
+                                         customsnackbar(context, 'remove book from favourite');
+                                         },
+                                          icon: const Icon(Icons.favorite_border,
                                           color: Color.fromARGB(255, 188, 6, 24),
                                           size: 20,)),
                                        ),
@@ -170,6 +180,7 @@ class _FavouritePageState extends State<FavouritePage> {
                   ),
                 );
               });
+        }
         },
       ),
     );

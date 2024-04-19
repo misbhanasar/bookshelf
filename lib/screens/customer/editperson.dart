@@ -281,12 +281,14 @@ class _AddcustomerState extends State<EditPerson> {
         
 
         await updateuser(data,widget.usermodel!.id!);
+        // ignore: use_build_context_synchronously
         customsnackbar(context, 'edited  details is sucessfully ');
-        Future.delayed(Duration(seconds: 1),(){
+        Future.delayed(const Duration(seconds: 1),(){
           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx)=>PersonDetails(data: data)));
         });
          // ignore: use_build_context_synchronously
          Navigator.of(context).pop();
+         // ignore: use_build_context_synchronously
          Navigator.of(context).pop();
         
     
